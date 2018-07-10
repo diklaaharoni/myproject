@@ -84,6 +84,20 @@ export default (state = initialState, action) => {
                 notes: '',
                 uid: '',
         }
+        case 'PERMISSIONS_DENIED':
+            return {
+                ...state,
+                toUpdate: false,
+                detailView: false,
+                first_name: '',
+                last_name: '',
+                phone: '',
+                email: '',
+                company: '',
+                project: '',
+                notes: '',
+                uid: '',
+        }
 
         case 'DELETE_CONTACT':
             return {

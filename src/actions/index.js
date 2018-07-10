@@ -24,15 +24,16 @@ export const formUpdate = ({ prop, value }) => {
 export const createNewContact = ({first_name, last_name, phone, email, company, project, notes}) => {
     console.log('in createNewContact');
     const {currentUser} = firebase.auth();
+    console.log('after firebase auth');
     const uid = currentUser.uid;
 
-    const data = {first_name, last_name, phone, email, company, project, notes}
+    const data = {first_name, last_name, phone, email, company, project, notes, created_by: currentUser.uid}
     data[uid] = true;
     // add a new user: data[new_user_uid] = true;
     return(dispatch) => {
-      firebase.database().ref(`/people`)
-      .push(data)
-      .then(() => {
+      console.log('before data push');
+      firebase.database().ref(`contacts`)
+      .push(data, function() {
         console.log('Success callback for firebase');
         dispatch({type: 'NEW_CONTACT'});
       });
@@ -43,8 +44,8 @@ export const loadInitialContacts = () => {
   console.log('in loadInitialContacts');
   const {currentUser} = firebase.auth();
   return(dispatch) => {
-    console.log('in dispatch for LIC');
-    firebase.database().ref(`people`).orderByChild(currentUser.uid).equalTo(true)
+    console.log('in dispatch for LIC. current user uid: ' + currentUser.uid);
+    firebase.database().ref(`contacts`).orderByChild(currentUser.uid)
     .once('value', (snapshot) => {
       console.log('got value after LIC');
       dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()});
@@ -56,7 +57,7 @@ export const loadInitialContacts = () => {
 export const deleteContact = (uid) => {
   const {currentUser} = firebase.auth();
   return(dispatch) => {
-    firebase.database().ref(`/people/${uid}`)
+    firebase.database().ref(`contacts/${uid}`)
     .remove()
     .then(() => {
       dispatch({type: 'DELETE_CONTACT'});
@@ -74,20 +75,32 @@ export const updateContact = (personSelected) => {
 export const saveContact = ({first_name, last_name, phone, email, company, project, notes, uid}) => {
   const {currentUser} = firebase.auth();
   return(dispatch) => {
-    firebase.database().ref(`/people/${uid}`)
-    .set({first_name, last_name, phone, email, company, project, notes, uid})
+    console.log(`before update: ${uid}`);
+    firebase.database().ref(`contacts/${uid}`)
+    .set({first_name, last_name, phone, email, company, project, notes, uid, created_by: currentUser.uid})
     .then(() => {
+      console.log(`after update: ${uid}`);
       dispatch({type: 'SAVE_CONTACT'});
+    }).catch(error => {
+      console.log(error)
+      dispatch({type: 'PERMISSIONS_DENIED'});
     });
   };
 };
 
 export const login = (email, password, onAuthSuccess, onAuthFailed, onStart) => {
   onStart();
-
+  console.log(email);
+  console.log(password);
   firebase.auth().signInWithEmailAndPassword(email, password)
-  .then(onAuthSuccess())
+  //firebase.auth().signInWithEmailAndPassword("dikla@gmail.com", "password1")
+  .then(() => {
+    console.log("success");
+    onAuthSuccess()
+  })
+
   .catch(() => {
+    console.log("fail");
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(onAuthSuccess())
     .catch(onAuthFailed());
