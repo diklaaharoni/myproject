@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "users": {
+      "$user": {
+        "people": {
+          "$person": {
+            "reader_uid": {
+              "$uid": {
+                ".read": "$uid === auth.uid"
+              }
+            }
+          }
+        },
+        ".write": "$user === auth.uid",
+      }
+    }
+  }
+}
