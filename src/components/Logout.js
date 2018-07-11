@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import firebase from 'firebase';
 import Loader from './Loader'
 import { logout } from '../actions';
@@ -19,9 +20,9 @@ export default class Logout extends React.Component {
   static navigationOptions = {
       tabBarLabel: 'Contacts',
       tabBarIcon: ({ tintColor }) => (
-        <Icon
-          name={'business'}
-          size={50}
+        <SimpleIcon
+          name={'logout'}
+          size={35}
           style={[{color: tintColor}]}
         />
       )
