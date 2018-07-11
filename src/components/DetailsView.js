@@ -21,6 +21,7 @@ const mapStateToProps = state => {
 
 class DetailsView extends Component {
     handleClick = (link) => {
+      console.log("link", link);
         Linking.canOpenURL(link).then(suppported => {
             if (supported) {
                 Linking.openURL(link);
@@ -49,7 +50,7 @@ class DetailsView extends Component {
           <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
               onPress={() => this.props.noneSelected()} />
           <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
-          <Text style={[theme.cardTitleStyle, styles.title2]}>from {this.props.person.company}</Text>
+          <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
           <View style={styles.textArea}>
              <MaterialIcon name={'phone'} size={40} style={styles.textIcons}/>
              <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
@@ -99,6 +100,28 @@ class DetailsView extends Component {
               <Text>Call</Text>
               <Text>SMS</Text>
               <Text>Email</Text>
+          </View>
+          <View style={styles.actionArea}>
+              <TouchableOpacity
+                  onPress={() => { this.handleClick(`instagram:${this.props.person.instagram}`)}}
+              >
+                  <Image source={require('../images/instagram_logo.png')} style={styles.actionImage}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  onPress={() => { this.handleClick(`linkedin:${this.props.person.linkedin}`)}}
+              >
+                  <Image source={require('../images/linkedin_logo.png')} style={styles.actionImage}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  onPress={() => { this.handleClick(`facebook:${this.props.person.facebook}`)}}
+              >
+                  <Image source={require('../images/facebook_logo.png')} style={styles.actionImage}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  onPress={() => { this.handleClick(`twitter:${this.props.person.twitter}`)}}
+              >
+                  <Image source={require('../images/twitter_logo.png')} style={styles.actionImage}/>
+              </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

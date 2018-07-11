@@ -12,8 +12,8 @@ const AddButton = MKButton.coloredButton()
   .build();
 
 const mapStateToProps = state => {
-  const { first_name, last_name, phone, email, company, project, notes } = state;
-  return { first_name, last_name, phone, email, company, project, notes };
+  const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes } = state;
+  return { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes };
 
 };
 class AddPerson extends Component {
@@ -28,9 +28,9 @@ class AddPerson extends Component {
         )
     }
     onAddPress() {
-      const { first_name, last_name, phone, email, company, project, notes } = this.props;
+      const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes } = this.props;
 
-      this.props.createNewContact({ first_name, last_name, phone, email, company, project, notes });
+      this.props.createNewContact({ first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes });
 
       this.props.navigation.navigate('PeopleList');
     }
@@ -73,6 +73,34 @@ class AddPerson extends Component {
             tintColor={MKColor.Blue}
             value={this.props.company}
             onChangeText={value => this.props.formUpdate({ prop: 'company', value})}
+          />
+          <MKTextField
+            textInputStyle={styles.fieldStyles}
+            placeholder={'Instagram...'}
+            tintColor={MKColor.Blue}
+            value={this.props.instagram}
+            onChangeText={value => this.props.formUpdate({ prop: 'instagram', value})}
+          />
+          <MKTextField
+            textInputStyle={styles.fieldStyles}
+            placeholder={'LinkedIn...'}
+            tintColor={MKColor.Blue}
+            value={this.props.linkedin}
+            onChangeText={value => this.props.formUpdate({ prop: 'linkedin', value})}
+          />
+          <MKTextField
+            textInputStyle={styles.fieldStyles}
+            placeholder={'Facebook...'}
+            tintColor={MKColor.Blue}
+            value={this.props.facebook}
+            onChangeText={value => this.props.formUpdate({ prop: 'facebook', value})}
+          />
+          <MKTextField
+            textInputStyle={styles.fieldStyles}
+            placeholder={'Twitter...'}
+            tintColor={MKColor.Blue}
+            value={this.props.twitter}
+            onChangeText={value => this.props.formUpdate({ prop: 'twitter', value})}
           />
           <MKTextField
             textInputStyle={styles.fieldStyles}
