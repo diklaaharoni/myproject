@@ -51,10 +51,10 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const {form, fieldStyles, loginButtonArea, errorMessage, welcome, container} = styles;
+    const {form, fieldStyles, loginButtonArea, errorMessage, text, container} = styles;
     return (
-      <View style={form}>
-        <Text>Login or Create a new account</Text>
+      <View style={form, container}>
+        <Text style={text}>Login or Create a new account</Text>
         <MKTextField
           text={this.state.email}
           onTextChange={email => this.setState({ email })}
@@ -105,5 +105,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'red',
     alignSelf: 'center',
+  },
+  text: {
+    fontSize: 20,
+    color: 'blue',
   },
 });
