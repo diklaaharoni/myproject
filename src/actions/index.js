@@ -35,7 +35,7 @@ export const createNewContact = ({first_name, last_name, phone, email, company, 
       firebase.database().ref(`contacts`)
       .push(data, function() {
         console.log('Success callback for firebase');
-        dispatch({type: 'NEW_CONTACT'});
+        dispatch({type: 'NEW_CONTACT', payload: data});
       });
     };
 };

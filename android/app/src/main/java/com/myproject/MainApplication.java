@@ -28,9 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new VectorIconsPackage(),
             new ReactMaterialKitPackage(),
-            new ImagePickerPackage() // <-- add this line
-            // OR if you want to customize dialog style
-            // new ImagePickerPackage(R.style.my_dialog_style)
+            new ImagePickerPackage()
       );
     }
 

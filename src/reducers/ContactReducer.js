@@ -23,6 +23,14 @@ const updatePeople = (oldPeople, updatedContact) => {
   return updatedPeople;
 };
 
+const addPeople = (oldPeople, newContact) => {
+  console.log(oldPeople, newContact);
+  const updatedPeople = {...oldPeople}
+  oldPeople.push(newContact)
+  return oldPeople;
+};
+
+
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'INITIAL_FETCH':
@@ -49,6 +57,7 @@ export default (state = initialState, action) => {
                 [action.payload.prop]: action.payload.value,
             }
         case 'NEW_CONTACT':
+        console.log(action);
             return {
                 ...state,
                 first_name: '',
@@ -62,12 +71,14 @@ export default (state = initialState, action) => {
                 twitter: '',
                 project: '',
                 notes: '',
+                people: addPeople(state.people, action.payload)
             }
 
         case 'ADD_PERSON':
             return {
                 ...state,
-                ...action.newPerson,
+                // ...action.newPerson,
+
             }
 
         case 'UPDATE_CONTACT':
