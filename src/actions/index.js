@@ -72,15 +72,16 @@ export const updateContact = (personSelected) => {
   };
 };
 
-export const saveContact = ({first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, uid}) => {
+export const saveContact = (contact) => {
   const {currentUser} = firebase.auth();
+  contact.created_by = currentUser.uid;
   return(dispatch) => {
-    console.log(`before update: ${uid}`);
-    firebase.database().ref(`contacts/${uid}`)
-    .set({first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, uid, created_by: currentUser.uid})
+    console.log(`before update: ${contact.uid}`);
+    firebase.database().ref(`contacts/${contact.uid}`)
+    .set(contact)
     .then(() => {
-      console.log(`after update: ${uid}`);
-      dispatch({type: 'SAVE_CONTACT'});
+      console.log(`after update: ${contact.uid}`);
+      dispatch({type: 'SAVE_CONTACT', payload: contact});
     }).catch(error => {
       console.log(error)
       dispatch({type: 'PERMISSIONS_DENIED'});

@@ -52,19 +52,35 @@ class DetailsView extends Component {
           <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
           <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
           <View style={styles.textArea}>
-             <MaterialIcon name={'phone'} size={40} style={styles.textIcons}/>
+          <TouchableOpacity
+              onPress={() => { this.handleClick(`tel:${this.props.person.phone}`)}}
+          >
+              <Image source={require('../images/call.png')} style={styles.textIcons}/>
+          </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
           </View>
           <View style={styles.textArea}>
-             <MaterialIcon name={'email'} size={40} style={styles.textIcons}/>
+          <TouchableOpacity
+              onPress={() => { this.handleClick(`sms:${this.props.person.phone}`)}}
+          >
+              <Image source={require('../images/sms.png')} style={styles.textIcons}/>
+          </TouchableOpacity>
+             <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
+          </View>
+          <View style={styles.textArea}>
+          <TouchableOpacity
+              onPress={() => { this.handleClick(`mailto:${this.props.person.email}`)}}
+          >
+              <Image source={require('../images/email.png')} style={styles.textIcons}/>
+          </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.email}</Text>
           </View>
           <View style={styles.textArea}>
-             <MaterialIcon name={'assignment'} size={40} style={styles.textIcons}/>
+             <MaterialIcon name={'assignment'} size={40} style={styles.icon}/>
              <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
           </View>
           <View style={styles.textArea}>
-             <MaterialIcon name={'mode-edit'} size={40} style={styles.textIcons}/>
+             <MaterialIcon name={'mode-edit'} size={40} style={styles.icon}/>
              <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
           </View>
           <View style={styles.editArea}>
@@ -79,48 +95,27 @@ class DetailsView extends Component {
                  <Text style={styles.editDeleteText}>DELETE</Text>
               </TouchableOpacity>
           </View>
-          <View style={styles.actionArea}>
-              <TouchableOpacity
-                  onPress={() => { this.handleClick(`tel:${this.props.person.phone}`)}}
-              >
-                  <Image source={require('../images/call.png')} style={styles.actionImage}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  onPress={() => { this.handleClick(`sms:${this.props.person.phone}`)}}
-              >
-                  <Image source={require('../images/sms.png')} style={styles.actionImage}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  onPress={() => { this.handleClick(`mailto:${this.props.person.email}`)}}
-              >
-                  <Image source={require('../images/email.png')} style={styles.actionImage}/>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.actionArea}>
-              <Text>Call</Text>
-              <Text>SMS</Text>
-              <Text>Email</Text>
-          </View>
+
           <View style={styles.actionArea}>
               <TouchableOpacity
                   onPress={() => { this.handleClick(`instagram:${this.props.person.instagram}`)}}
               >
-                  <Image source={require('../images/instagram_logo.png')} style={styles.actionImage}/>
+                  <Image source={require('../images/instagram_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
                   onPress={() => { this.handleClick(`linkedin:${this.props.person.linkedin}`)}}
               >
-                  <Image source={require('../images/linkedin_logo.png')} style={styles.actionImage}/>
+                  <Image source={require('../images/linkedin_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
                   onPress={() => { this.handleClick(`facebook:${this.props.person.facebook}`)}}
               >
-                  <Image source={require('../images/facebook_logo.png')} style={styles.actionImage}/>
+                  <Image source={require('../images/facebook_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
                   onPress={() => { this.handleClick(`twitter:${this.props.person.twitter}`)}}
               >
-                  <Image source={require('../images/twitter_logo.png')} style={styles.actionImage}/>
+                  <Image source={require('../images/twitter_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
           </View>
         </View>
@@ -180,11 +175,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(255,255,255,0)',
   },
   icon: {
-      position: 'absolute',
-      top: 15,
-      left: 0,
-      color: 'white',
-      backgroundColor: 'rgba(255,255,255,0)',
+      color: 'orange',
+      marginBottom: 20,
+      marginLeft: 10,
   },
   textArea: {
       flexDirection: 'row',
@@ -193,7 +186,9 @@ const styles = StyleSheet.create({
       width: 260,
   },
   textIcons: {
-      color: 'rgba(246, 108, 9, 0.71)',
+      height:60,
+      width: 60,
+      marginBottom: 10,
   },
   actionArea: {
       paddingTop: 10,
@@ -202,12 +197,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
   },
   actionImage: {
-    width: 80,
-    height: 80,
+    color: 'orange',
   },
   editIcon: {
     color: '#26a6e4',
-
+    marginLeft: 10,
   },
   sections: {
     flexDirection: 'row',
@@ -217,6 +211,7 @@ const styles = StyleSheet.create({
   },
   deleteIcon: {
     color: '#e9a69a',
+    marginLeft: 10,
   },
   editDeleteText: {
     marginTop: 10,

@@ -17,6 +17,12 @@ const initialState = {
     toUpdate: false,
 };
 
+const updatePeople = (oldPeople, updatedContact) => {
+  const updatedPeople = {...oldPeople}
+  updatedPeople[updatedContact.uid] = updatedContact;
+  return updatedPeople;
+};
+
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'INITIAL_FETCH':
@@ -99,6 +105,7 @@ export default (state = initialState, action) => {
                 project: '',
                 notes: '',
                 uid: '',
+                people: updatePeople(state.people, action.payload)
         }
         case 'PERMISSIONS_DENIED':
             return {
