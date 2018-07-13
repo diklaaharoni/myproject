@@ -23,7 +23,7 @@ class DetailsView extends Component {
     handleClick = (link) => {
       console.log("link", link);
         Linking.canOpenURL(link).then(suppported => {
-            if (supported) {
+            if (suppported) {
                 Linking.openURL(link);
             } else {
                 console.log('Don\'t know how to open URI: ' + link);

@@ -23,12 +23,12 @@ const updatePeople = (oldPeople, updatedContact) => {
   return updatedPeople;
 };
 
-const addPeople = (oldPeople, newContact) => {
-  console.log(oldPeople, newContact);
-  const updatedPeople = {...oldPeople}
-  oldPeople.push(newContact)
-  return oldPeople;
-};
+// const addPeople = (oldPeople, newContact) => {
+//   console.log(oldPeople, newContact);
+//   const updatedPeople = {...oldPeople}
+//   oldPeople.push(newContact)
+//   return oldPeople;
+// };
 
 
 export default (state = initialState, action) => {
@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
                 twitter: '',
                 project: '',
                 notes: '',
-                people: addPeople(state.people, action.payload)
+                // people: addPeople(state.people, action.payload)
             }
 
         case 'ADD_PERSON':
