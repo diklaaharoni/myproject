@@ -58,7 +58,7 @@ class ContactList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/*<View style={styles.searchBar}>
+        <View style={styles.searchBar}>
           <TextInput
             style={styles.searchText}
             placeholder="Search..."
@@ -68,7 +68,7 @@ class ContactList extends React.Component {
             title="Search"
             onPress={() => {console.log("click");}}
           />
-        </View>*/}
+        </View>
         <View>
           {this.renderInitialView()}
         </View>
@@ -82,14 +82,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: 400,
-    flexWrap: 'wrap',
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10,
   },
   searchBar: {
     flexDirection: 'row',
-    marginBottom: 8,
   },
   searchText: {
     flex: 1,
