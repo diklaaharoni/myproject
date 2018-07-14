@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, Linking, Share } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme } from 'react-native-material-kit';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
@@ -33,8 +33,7 @@ class DetailsView extends Component {
 
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
+
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[theme.cardStyle, styles.card]}>
@@ -51,6 +50,15 @@ class DetailsView extends Component {
               onPress={() => this.props.noneSelected()} />
           <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
           <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
+         <View style={styles.shareArea}>
+              <Text style={theme.cardContentStyle}>Share</Text>
+            <TouchableOpacity
+                onPress={() => { Share.share({message: this.props.person.first_name })}}
+            >
+                <Image source={require('../images/share_img.png')} style={styles.textIcons}/>
+            </TouchableOpacity>
+              <Text style={theme.cardContentStyle}>Contact</Text>
+          </View>
           <View style={styles.textArea}>
           <TouchableOpacity
               onPress={() => { this.handleClick(`tel:${this.props.person.phone}`)}}
@@ -98,22 +106,22 @@ class DetailsView extends Component {
 
           <View style={styles.actionArea}>
               <TouchableOpacity
-                  onPress={() => { this.handleClick(`instagram:${this.props.person.instagram}`)}}
+                  onPress={() => { this.handleClick(`${this.props.person.instagram}`)}}
               >
                   <Image source={require('../images/instagram_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
-                  onPress={() => { this.handleClick(`linkedin:${this.props.person.linkedin}`)}}
+                  onPress={() => { this.handleClick(`${this.props.person.linkedin}`)}}
               >
                   <Image source={require('../images/linkedin_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
-                  onPress={() => { this.handleClick(`facebook:${this.props.person.facebook}`)}}
+                  onPress={() => { this.handleClick(`${this.props.person.facebook}`)}}
               >
                   <Image source={require('../images/facebook_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
               <TouchableOpacity
-                  onPress={() => { this.handleClick(`twitter:${this.props.person.twitter}`)}}
+                  onPress={() => { this.handleClick(`${this.props.person.twitter}`)}}
               >
                   <Image source={require('../images/twitter_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
@@ -184,6 +192,10 @@ const styles = StyleSheet.create({
       paddingLeft: 20,
       paddingTop: 10,
       width: 260,
+  },
+  shareArea: {
+      flexDirection: 'row',
+      justifyContent: 'center',
   },
   textIcons: {
       height:60,
