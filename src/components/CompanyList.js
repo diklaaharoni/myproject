@@ -6,6 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import CompanyItem from './CompanyItem';
 
 
+
+
+
 const mapStateToProps = state => {
   const people = _.map(state.people, (val, uid) =>{
     return {...val, uid};
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     backgroundColor: '#e5e5e5',
   },
-  
+
 });
 
 export default connect(mapStateToProps)(CompanyList)

@@ -23,12 +23,16 @@ const updatePeople = (oldPeople, updatedContact) => {
   return updatedPeople;
 };
 
-// const addPeople = (oldPeople, newContact) => {
-//   console.log(oldPeople, newContact);
-//   const updatedPeople = {...oldPeople}
-//   oldPeople.push(newContact)
-//   return oldPeople;
-// };
+const addPeople = (oldPeople, newContact) => {
+  console.log(oldPeople, newContact);
+  return { ...oldPeople, [newContact.uid]: newContact };
+};
+
+const deletePeople = (oldPeople, uid) => {
+  const updatedPeople = {...oldPeople}
+  delete updatedPeople[uid];
+  return updatedPeople;
+};
 
 
 export default (state = initialState, action) => {
@@ -58,6 +62,7 @@ export default (state = initialState, action) => {
             }
         case 'NEW_CONTACT':
         console.log(action);
+
             return {
                 ...state,
                 first_name: '',
@@ -71,13 +76,14 @@ export default (state = initialState, action) => {
                 twitter: '',
                 project: '',
                 notes: '',
-                // people: addPeople(state.people, action.payload)
+                detailView: false,
+                people: addPeople(state.people, action.payload)
             }
 
         case 'ADD_PERSON':
             return {
                 ...state,
-                // ...action.newPerson,
+                ...action.newPerson,
 
             }
 
@@ -142,6 +148,7 @@ export default (state = initialState, action) => {
                 ...state,
                 detailView: false,
                 personSelected: null,
+                people: deletePeople(state.people, action.payload)
         }
 
         default:

@@ -32,11 +32,12 @@ export const createNewContact = ({first_name, last_name, phone, email, company, 
     // add a new user: data[new_user_uid] = true;
     return(dispatch) => {
       console.log('before data push');
-      firebase.database().ref(`contacts`)
-      .push(data, function() {
+      const newContactRef = firebase.database().ref(`contacts`).push(data);
+
+      newContactRef.then(function() {
         console.log('Success callback for firebase');
-        dispatch({type: 'NEW_CONTACT', payload: data});
-      });
+        dispatch({type: 'NEW_CONTACT', payload: {...data, uid: newContactRef.key}});
+      })
     };
 };
 
@@ -60,7 +61,7 @@ export const deleteContact = (uid) => {
     firebase.database().ref(`contacts/${uid}`)
     .remove()
     .then(() => {
-      dispatch({type: 'DELETE_CONTACT'});
+      dispatch({type: 'DELETE_CONTACT', payload: uid});
     });
   };
 }
