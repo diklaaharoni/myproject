@@ -7,8 +7,19 @@ import Loader from './Loader';
 import Navigation from './Navigation';
 import reducers from '../reducers/ContactReducer';
 import Thunk from 'redux-thunk';
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
 
 
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
+
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
