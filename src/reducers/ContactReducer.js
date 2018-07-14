@@ -2,6 +2,7 @@
 const initialState = {
     people: [],
     detailView: false,
+    searchTerm: '',
     personSelected: null,
     first_name: '',
     last_name: '',

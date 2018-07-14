@@ -14,7 +14,7 @@ const mapStateToProps = state => {
     return {...val, uid};
   });
 
-  const companies =
+  const unsortedCompanies =
   _.chain(people)
   .groupBy('company')
   .map((value, key) => {
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
     };
   })
   .value();
-
+  const companies = _.orderBy(unsortedCompanies, ['company'], ['asc'])
   return {
     companies,
   }

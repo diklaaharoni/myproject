@@ -9,11 +9,13 @@ import { loadInitialContacts } from '../actions';
 import { Button } from 'react-native-elements';
 
 const mapStateToProps = state => {
-  const people = _.map(state.people, (val, uid) =>{
+  const unsortedPeople = _.map(state.people, (val, uid) =>{
     return {...val, uid};
   });
+  const people = _.orderBy(unsortedPeople, ['first_name'], ['asc'])
   return {
     people,
+    searchTerm: '',
     detailView: state.detailView,
   }
 }
@@ -32,6 +34,18 @@ class ContactList extends React.Component {
   UNSAFE_componentWillMount() {
     this.props.loadInitialContacts();
   }
+
+  handelSearch()  {
+    const filteredList = _.filter(this.props.people, (person) => {
+      const fullName = `${person.first_name} ${person.last_name}`
+      return fullName.indexOf(this.state.searchTerm) > -1;
+    })
+    console.log(this.state);
+    this.setState({people: filteredList})
+  }
+
+
+
 
   renderInitialView() {
     const ds = new ListView.DataSource({
@@ -62,11 +76,12 @@ class ContactList extends React.Component {
           <TextInput
             style={styles.searchText}
             placeholder="Search..."
+            onChangeText={(text) => this.setState({searchTerm: text})}
           />
           <Button
             buttonStyle={styles.buttonStyle}
             title="Search"
-            onPress={() => {console.log("click");}}
+            onPress={() => this.handelSearch()}
           />
         </View>
         <View>
