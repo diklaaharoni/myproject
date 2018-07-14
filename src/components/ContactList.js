@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, ListView, StyleSheet } from 'react-native';
+import { TextInput, View, ListView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import PeopleItem from './PeopleItem';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import PeopleDetail from './PeopleDetail';
 import { loadInitialContacts } from '../actions';
-
+import { Button } from 'react-native-elements';
 
 const mapStateToProps = state => {
   const people = _.map(state.people, (val, uid) =>{
@@ -58,7 +58,20 @@ class ContactList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderInitialView()}
+        {/*<View style={styles.searchBar}>
+          <TextInput
+            style={styles.searchText}
+            placeholder="Search..."
+          />
+          <Button
+            buttonStyle={styles.buttonStyle}
+            title="Search"
+            onPress={() => {console.log("click");}}
+          />
+        </View>*/}
+        <View>
+          {this.renderInitialView()}
+        </View>
       </View>
     );
   }
@@ -73,6 +86,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+  searchText: {
+    flex: 1,
+  },
+  buttonStyle: {
+    height: 40,
+    marginBottom: 8,
   },
 });
 
