@@ -12,6 +12,10 @@ const AddButton = MKButton.coloredButton()
 .withText('ADD')
 .build();
 
+const AddImage = MKButton.coloredButton()
+.withText('ADD Image')
+.build();
+
 const mapStateToProps = state => {
   const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes } = state;
   return { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes };
@@ -68,8 +72,7 @@ class AddPerson extends Component {
       <Image sorce={{uri: this.state.avatar}}
       style={styles.avatar}
       />
-      <Button
-      title='Add Image'
+      <AddImage
       onPress={()=>this.addImage()}
       />
       </View>
