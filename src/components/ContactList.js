@@ -5,14 +5,15 @@ import _ from 'lodash';
 import PeopleItem from './PeopleItem';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import PeopleDetail from './PeopleDetail';
-import { loadInitialContacts } from '../actions';
+// import { loadInitialContacts } from '../actions';
 import { Button } from 'react-native-elements';
+import * as actions from '../actions';
 
 const mapStateToProps = state => {
   const unsortedPeople = _.map(state.people, (val, uid) =>{
-    return {...val, uid};
+    return {...val, uid, full_name: `${val.first_name} ${val.last_name}`};
   });
-  const people = _.orderBy(unsortedPeople, ['first_name'], ['asc'])
+  const people = _.orderBy(unsortedPeople, ['full_name'], ['asc'])
   return {
     people,
     searchTerm: '',
@@ -36,12 +37,9 @@ class ContactList extends React.Component {
   }
 
   handelSearch()  {
-    const filteredList = _.filter(this.props.people, (person) => {
-      const fullName = `${person.first_name} ${person.last_name}`
-      return fullName.indexOf(this.state.searchTerm) > -1;
-    })
+    // this.props.loadInitialContacts();
     console.log(this.state);
-    this.setState({people: filteredList})
+    this.props.loadFilteredContacts(this.state.searchTerm)
   }
 
 
@@ -113,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, {loadInitialContacts})(ContactList);
+export default connect(mapStateToProps, actions)(ContactList);

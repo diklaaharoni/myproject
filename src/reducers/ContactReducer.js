@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 
 const initialState = {
     people: [],
@@ -34,6 +36,16 @@ const deletePeople = (oldPeople, uid) => {
   delete updatedPeople[uid];
   return updatedPeople;
 };
+
+const filterPeople = (oldPeople, searchTerm) => {
+  const filteredList = _.filter(oldPeople, (person) => {
+    const fullName = `${person.first_name} ${person.last_name}`
+    return fullName.indexOf(searchTerm) > -1;
+  })
+  return filteredList;
+};
+
+
 
 
 export default (state = initialState, action) => {
@@ -150,6 +162,15 @@ export default (state = initialState, action) => {
                 detailView: false,
                 personSelected: null,
                 people: deletePeople(state.people, action.payload)
+        }
+
+        case 'FILTER_CONTACT':
+        console.log(action.payload);
+            return {
+                ...state,
+                detailView: false,
+                personSelected: null,
+                people: filterPeople(state.people, action.payload)
         }
 
         default:

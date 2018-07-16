@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import { getTheme} from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 
 const theme = getTheme();
@@ -22,9 +24,15 @@ const CompanyItem = (props) => {
         <Text style={[theme.cardTitleStyle, styles.title]}>{props.companies.company}</Text>
         {props.companies.names.map((name) => {
           return (
-            <Text key={name.uid} style={[theme.cardActionStyle, styles.action]}>
-              {name.first_name} {name.last_name} - Project: {name.project}
-            </Text>
+            <TouchableWithoutFeedback key={name.uid}
+              onPress={() => props.selectPerson(name.uid)}
+            >
+            <View>
+              <Text   style={[theme.cardActionStyle, styles.action]}>
+                {name.first_name} {name.last_name} - Project: {name.project}
+              </Text>
+            </View>
+            </TouchableWithoutFeedback>
           );
         })}
       </View>
@@ -70,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CompanyItem;
+export default connect(null, actions)(CompanyItem);

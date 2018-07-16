@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import _ from 'lodash';
 
 
 export const selectPerson = (peopleId) => {
@@ -55,6 +56,28 @@ export const loadInitialContacts = () => {
 };
 
 
+const filterPeople = (oldPeople, searchTerm) => {
+  const filteredList = _.filter(oldPeople, (person) => {
+    const fullName = `${person.first_name} ${person.last_name}`
+    return fullName.indexOf(searchTerm) > -1;
+  })
+  return filteredList;
+};
+
+export const loadFilteredContacts = (searchTerm) => {
+  console.log('in loadInitialContacts');
+  const {currentUser} = firebase.auth();
+  return(dispatch) => {
+    console.log('in dispatch for LIC. current user uid: ' + currentUser.uid);
+    firebase.database().ref(`contacts`).orderByChild(currentUser.uid)
+    .once('value', (snapshot) => {
+      console.log('got value after LIC');
+      dispatch({type: 'INITIAL_FETCH', payload: filterPeople(snapshot.val(), searchTerm)});
+    });
+  };
+};
+
+
 export const deleteContact = (uid) => {
   const {currentUser} = firebase.auth();
   return(dispatch) => {
@@ -73,6 +96,7 @@ export const updateContact = (personSelected) => {
   };
 };
 
+
 export const saveContact = (contact) => {
   const {currentUser} = firebase.auth();
   contact.created_by = currentUser.uid;
@@ -89,6 +113,14 @@ export const saveContact = (contact) => {
     });
   };
 };
+
+export const filterList = (searchTerm) => {
+  return {
+    type: 'FILTER_CONTACT',
+    payload: searchTerm,
+  };
+};
+
 
 export const login = (email, password, onAuthSuccess, onAuthFailed, onStart) => {
   onStart();
