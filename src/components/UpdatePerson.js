@@ -73,7 +73,8 @@ class UpdatePerson extends Component {
         }else if (response.error) {
           alert('sorry, not working')
         }else {
-          this.props.addPhoto(response.uri)
+          console.log(response.data)
+          this.props.addPhoto(response.data)
         }
       })
     }
@@ -84,7 +85,7 @@ class UpdatePerson extends Component {
         <View style={styles.form}>
         <View style={styles.header}>
         <Image
-        source={{uri: this.props.avatarUri}}
+        source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
         style={styles.avatar}
         />
           <Text style={styles.text}>UPDATE CONTACT</Text>

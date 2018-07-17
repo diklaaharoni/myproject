@@ -62,7 +62,7 @@ class DetailsView extends Component {
               style={[theme.cardImageStyle, styles.image]}
           />
           <Image
-              source={{uri: this.props.person.avatarUri}}
+              source={{uri: 'data:image/jpeg;base64,' + this.props.person.avatarUri}}
               style={[theme.cardImageStyle, styles.image2]}
               size={100}
           />

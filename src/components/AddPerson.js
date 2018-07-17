@@ -81,7 +81,7 @@ class AddPerson extends Component {
       }else if (response.error) {
         alert('sorry, not working')
       }else {
-        this.props.addPhoto(response.uri)
+        this.props.addPhoto(response.data)
       }
     })
   }
@@ -93,7 +93,7 @@ class AddPerson extends Component {
           <Text style={styles.text}>ADD A NEW CONTACT</Text>
         <View>
           <Image
-            source={{uri: this.props.avatarUri}}
+            source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
             style={styles.avatar}
           />
           <AddImage

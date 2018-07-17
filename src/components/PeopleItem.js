@@ -20,7 +20,7 @@ const PeopleItem = (props) => {
           style={styles.image}
         />
         <Image
-          source={{uri: props.people.avatarUri}}
+          source={{uri: 'data:image/jpeg;base64,' + props.people.avatarUri}}
           size={100}
           style={styles.image2}
         />
