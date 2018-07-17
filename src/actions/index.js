@@ -54,7 +54,7 @@ export const loadInitialContacts = () => {
     firebase.database().ref(`contacts`).orderByChild(currentUser.uid)
     .once('value', (snapshot) => {
       console.log('got value after LIC');
-      dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()});
+      dispatch({type: 'INITIAL_FETCH', payload: {snapshots: snapshot.val(), userId: currentUser.uid }});
     });
   };
 };

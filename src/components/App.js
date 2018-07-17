@@ -40,7 +40,8 @@ export default class App extends React.Component {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
-        this.setState({loggedIn: true})
+        console.log(user);
+        this.setState({loggedIn: true, userId: user.uid})
       } else {
         this.setState({loggedIn: false})
       }

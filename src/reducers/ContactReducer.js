@@ -52,9 +52,11 @@ const filterPeople = (oldPeople, searchTerm) => {
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'INITIAL_FETCH':
+        console.log(action.payload);
             return {
               ...state,
-              people: action.payload,
+              people: action.payload.snapshots,
+              userId: action.payload.userId
             }
 
         case 'SELECTED_PERSON':

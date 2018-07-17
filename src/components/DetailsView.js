@@ -16,6 +16,7 @@ const mapStateToProps = state => {
   return {
     person: state.personSelected,
     toUpdate: state.toUpdate,
+    userId: state.userId
    };
 };
 
@@ -53,7 +54,7 @@ class DetailsView extends Component {
 
 
   render() {
-
+console.log("bla", this.props.userId);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[theme.cardStyle, styles.card]}>
@@ -68,7 +69,7 @@ class DetailsView extends Component {
           />
           <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
               onPress={() => this.props.noneSelected()} />
-          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name}
+          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} 
            {this.props.person.last_name}</Text>
           <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
          <View style={styles.shareArea}>
@@ -122,6 +123,7 @@ class DetailsView extends Component {
              <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
           </View>
         }
+        {this.props.person.created_by === this.props.userId &&
           <View style={styles.editArea}>
               <TouchableOpacity style={styles.sections}
                  onPress={() => { this.props.updateContact(this.props.person)}}>
@@ -134,6 +136,7 @@ class DetailsView extends Component {
                  <Text style={styles.editDeleteText}>DELETE</Text>
               </TouchableOpacity>
           </View>
+        }
 
           <View style={styles.actionArea}>
             {!!this.props.person.instagram &&
