@@ -45,7 +45,10 @@ class DetailsView extends Component {
 
     share = () => {
       const person = this.props.person
-       Share.share({message: `${person.first_name} ${person.last_name} ${person.company}` })
+       Share.share({message: `${person.first_name}
+          ${person.last_name} ${person.phone} ${person.email}
+           ${person.company} ${person.instagram}
+            ${person.linkedin} ${person.facebook} ${person.twitter} ${person.project} ${person.notes}` })
     }
 
 
