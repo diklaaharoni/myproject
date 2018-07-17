@@ -80,6 +80,7 @@ class DetailsView extends Component {
             </TouchableOpacity>
               <Text style={theme.cardContentStyle}>Contact</Text>
           </View>
+          {!!this.props.person.phone &&
           <View style={styles.textArea}>
           <TouchableOpacity
               onPress={() => { this.handleClick(`tel:${this.props.person.phone}`)}}
@@ -88,6 +89,8 @@ class DetailsView extends Component {
           </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
           </View>
+        }
+          {!!this.props.person.phone &&
           <View style={styles.textArea}>
           <TouchableOpacity
               onPress={() => { this.handleClick(`sms:${this.props.person.phone}`)}}
@@ -96,6 +99,7 @@ class DetailsView extends Component {
           </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
           </View>
+        }
           {!!this.props.person.email &&
           <View style={styles.textArea}>
           <TouchableOpacity
@@ -112,10 +116,12 @@ class DetailsView extends Component {
                <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
             </View>
           }
+          {!!this.props.person.notes &&
           <View style={styles.textArea}>
              <MaterialIcon name={'mode-edit'} size={40} style={styles.icon}/>
              <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
           </View>
+        }
           <View style={styles.editArea}>
               <TouchableOpacity style={styles.sections}
                  onPress={() => { this.props.updateContact(this.props.person)}}>
@@ -130,26 +136,34 @@ class DetailsView extends Component {
           </View>
 
           <View style={styles.actionArea}>
+            {!!this.props.person.instagram &&
               <TouchableOpacity
                   onPress={() => { this.handleClick(`${this.props.person.instagram}`)}}
               >
                   <Image source={require('../images/instagram_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
+            }
+            {!!this.props.person.linkedin &&
               <TouchableOpacity
                   onPress={() => { this.handleClick(`${this.props.person.linkedin}`)}}
               >
                   <Image source={require('../images/linkedin_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
+            }
+            {!!this.props.person.facebook &&
               <TouchableOpacity
                   onPress={() => { this.handleClick(`${this.props.person.facebook}`)}}
               >
                   <Image source={require('../images/facebook_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
+            }
+            {!!this.props.person.twitter &&
               <TouchableOpacity
                   onPress={() => { this.handleClick(`${this.props.person.twitter}`)}}
               >
                   <Image source={require('../images/twitter_logo.png')} style={styles.textIcons}/>
               </TouchableOpacity>
+            }
           </View>
         </View>
       </ScrollView>

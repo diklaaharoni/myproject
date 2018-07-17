@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-picker';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 
 
@@ -84,6 +85,8 @@ class UpdatePerson extends Component {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
         <View style={styles.header}>
+        {/* <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
+            onPress={() => console.log(this) && this.props.selectPerson(this.props)} /> */}
         <Image
         source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
         style={styles.avatar}
