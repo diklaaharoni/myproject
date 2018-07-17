@@ -96,18 +96,22 @@ class DetailsView extends Component {
           </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.phone}</Text>
           </View>
+          {!!this.props.person.email &&
           <View style={styles.textArea}>
           <TouchableOpacity
               onPress={() => { this.handleClick(`mailto:${this.props.person.email}`)}}
           >
-              <Image source={require('../images/email.png')} style={styles.textIcons}/>
+          <Image source={require('../images/email.png')} style={styles.textIcons}/>
           </TouchableOpacity>
              <Text style={theme.cardContentStyle}>{this.props.person.email}</Text>
           </View>
-          <View style={styles.textArea}>
-             <MaterialIcon name={'assignment'} size={40} style={styles.icon}/>
-             <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
-          </View>
+        }
+          {!!this.props.person.project &&
+            <View style={styles.textArea}>
+               <MaterialIcon name={'assignment'} size={40} style={styles.icon}/>
+               <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
+            </View>
+          }
           <View style={styles.textArea}>
              <MaterialIcon name={'mode-edit'} size={40} style={styles.icon}/>
              <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
