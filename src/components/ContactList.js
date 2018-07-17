@@ -8,6 +8,8 @@ import PeopleDetail from './PeopleDetail';
 // import { loadInitialContacts } from '../actions';
 import { Button } from 'react-native-elements';
 import * as actions from '../actions';
+import PropTypes from 'prop-types';
+
 
 const mapStateToProps = state => {
   const unsortedPeople = _.map(state.people, (val, uid) =>{
@@ -22,6 +24,13 @@ const mapStateToProps = state => {
 }
 
 class ContactList extends React.Component {
+  static propTypes = {
+    detailView: PropTypes.bool,
+    people: PropTypes.array,
+    loadInitialContacts:PropTypes.func,
+    loadFilteredContacts:PropTypes.func,
+  };
+
   static navigationOptions = {
       tabBarLabel: 'Contacts',
       tabBarIcon: ({ tintColor }) => (

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View, ListView, StyleSheet } from 'react-native';
+import { View, ListView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CompanyItem from './CompanyItem';
+import PropTypes from 'prop-types';
 
 
 
@@ -31,6 +32,10 @@ const mapStateToProps = state => {
 }
 
 class CompanyList extends React.Component {
+  static propTypes = {
+    companies: PropTypes.array,
+  };
+
   static navigationOptions = {
       tabBarLabel: 'Contacts',
       tabBarIcon: ({ tintColor }) => (

@@ -22,21 +22,25 @@ export const formUpdate = ({ prop, value }) => {
     };
 };
 
-export const createNewContact = ({first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes}) => {
+export const createNewContact = ({avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
+   facebook, twitter, project, notes}) => {
     console.log('in createNewContact');
     const {currentUser} = firebase.auth();
     console.log('after firebase auth');
     const uid = currentUser.uid;
 
-    const data = {first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, created_by: currentUser.uid}
+    const data = {avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
+       project, notes, created_by: currentUser.uid}
     data[uid] = true;
     // add a new user: data[new_user_uid] = true;
     return(dispatch) => {
       console.log('before data push');
+      debugger;
       const newContactRef = firebase.database().ref(`contacts`).push(data);
 
       newContactRef.then(function() {
         console.log('Success callback for firebase');
+        debugger;
         dispatch({type: 'NEW_CONTACT', payload: {...data, uid: newContactRef.key}});
       })
     };
@@ -148,4 +152,11 @@ export const logout = () => {
   }).catch(function(error) {
     // An error happened.
   });
+}
+
+export const addPhoto = (uri) => {
+  return {
+    type: 'ADD_PHOTO',
+    payload: uri,
+  };
 }

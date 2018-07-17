@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView, Image, Button } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import ImagePicker from 'react-native-image-picker';
+import PropTypes from 'prop-types';
+
 
 
 
@@ -17,17 +19,37 @@ const AddImage = MKButton.coloredButton()
 .build();
 
 const mapStateToProps = state => {
-  const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes } = state;
-  return { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes };
+  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project,
+     notes } = state;
+  return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+     twitter, project, notes };
 
 };
 class AddPerson extends Component {
-  constructor() {
-    super();
-    this.state = {
-      avatar: '',
-    }
+  static propTypes = {
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+    company: PropTypes.string,
+    instagram: PropTypes.string,
+    linkedin: PropTypes.string,
+    facebook: PropTypes.string,
+    twitter: PropTypes.string,
+    project: PropTypes.string,
+    notes: PropTypes.string,
+    uid: PropTypes.string,
+    createNewContact:PropTypes.func,
+    navigation:PropTypes.object,
+    formUpdate:PropTypes.func,
   }
+
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     avatar: '',
+  //   }
+  // }
   static navigationOptions = {
     tabBarLabel: 'Contacts',
     tabBarIcon: ({ tintColor }) => (
@@ -39,9 +61,12 @@ class AddPerson extends Component {
     )
   }
   onAddPress() {
-    const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes } = this.props;
+    const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+       twitter,
+       project, notes } = this.props;
 
-    this.props.createNewContact({ first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes });
+    this.props.createNewContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
+       facebook, twitter, project, notes });
 
     this.props.navigation.navigate('PeopleList');
   }
@@ -56,9 +81,7 @@ class AddPerson extends Component {
       }else if (response.error) {
         alert('sorry, not working')
       }else {
-        this.setState({
-          avatar: response.uri
-        })
+        this.props.addPhoto(response.uri)
       }
     })
   }
@@ -70,7 +93,7 @@ class AddPerson extends Component {
           <Text style={styles.text}>ADD A NEW CONTACT</Text>
         <View>
           <Image
-            sorce={{uri: this.state.avatar}}
+            source={{uri: this.props.avatarUri}}
             style={styles.avatar}
           />
           <AddImage

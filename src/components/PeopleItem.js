@@ -2,8 +2,9 @@ import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme} from 'react-native-material-kit';
-import Icon from 'react-native-vector-icons/EvilIcons';
+// import Icon from 'react-native-vector-icons/EvilIcons';
 import * as actions from '../actions';
+import PropTypes from 'prop-types';
 
 
 const theme = getTheme();
@@ -19,7 +20,7 @@ const PeopleItem = (props) => {
           style={styles.image}
         />
         <Image
-          source={{uri: props.people.image}}
+          source={{uri: props.people.avatarUri}}
           size={100}
           style={styles.image2}
         />
@@ -29,6 +30,14 @@ const PeopleItem = (props) => {
     </TouchableWithoutFeedback>
   )
 }
+
+PeopleItem.propTypes = {
+    selectPerson: PropTypes.func,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    company: PropTypes.string,
+    people: PropTypes.object,
+  }
 
 const styles = StyleSheet.create({
   card: {

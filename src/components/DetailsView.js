@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, Linking, Share } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme } from 'react-native-material-kit';
-import EvilIcon from 'react-native-vector-icons/EvilIcons';
+// import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
-import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
+// import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
 import * as actions from '../actions';
+import PropTypes from 'prop-types';
+
 
 const theme = getTheme();
 
@@ -20,6 +22,16 @@ const mapStateToProps = state => {
 
 
 class DetailsView extends Component {
+  static propTypes = {
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    person: PropTypes.object,
+    avatar: PropTypes.string,
+    updateContact:PropTypes.func,
+    deleteContact:PropTypes.func,
+    noneSelected:PropTypes.func,
+  };
+
     handleClick = (link) => {
       console.log("link", link);
         Linking.canOpenURL(link).then(suppported => {
@@ -30,6 +42,11 @@ class DetailsView extends Component {
             }
         });
     };
+
+    share = () => {
+      const person = this.props.person
+       Share.share({message: `${person.first_name} ${person.last_name} ${person.company}` })
+    }
 
 
   render() {
@@ -42,18 +59,19 @@ class DetailsView extends Component {
               style={[theme.cardImageStyle, styles.image]}
           />
           <Image
-              source={{uri: this.props.person.avatar}}
+              source={{uri: this.props.person.avatarUri}}
               style={[theme.cardImageStyle, styles.image2]}
               size={100}
           />
           <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
               onPress={() => this.props.noneSelected()} />
-          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
+          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name}
+           {this.props.person.last_name}</Text>
           <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
          <View style={styles.shareArea}>
               <Text style={theme.cardContentStyle}>Share</Text>
             <TouchableOpacity
-                onPress={() => { Share.share({message: this.props.person.first_name })}}
+                onPress={this.share}
             >
                 <Image source={require('../images/share_img.png')} style={styles.textIcons}/>
             </TouchableOpacity>

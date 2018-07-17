@@ -4,6 +4,8 @@ import { getTheme} from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 
 const theme = getTheme();
@@ -39,6 +41,11 @@ const CompanyItem = (props) => {
     </View>
   )
 }
+
+CompanyItem.propTypes = {
+    names: PropTypes.string,
+    companies: PropTypes.object,
+  }
 
 const styles = StyleSheet.create({
   card: {

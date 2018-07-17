@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore,applyMiddleware } from 'redux';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { StyleSheet } from 'react-native';
 import Login from './Login';
 import Loader from './Loader';
 import Navigation from './Navigation';
@@ -21,7 +21,8 @@ console.warn = message => {
   }
 };
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
+const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ &&
+   window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
 
 export default class App extends React.Component {

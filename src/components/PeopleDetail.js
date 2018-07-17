@@ -9,6 +9,8 @@ import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
 import * as actions from '../actions';
 import DetailsView from './DetailsView';
 import UpdatePerson from './UpdatePerson';
+import PropTypes from 'prop-types';
+
 
 const theme = getTheme();
 
@@ -19,6 +21,10 @@ const mapStateToProps = state => {
 };
 
 class PeopleDetail extends Component {
+  static propTypes = {
+    toUpdate: PropTypes.bool,
+  };
+
     renderDetails() {
       if (this.props.toUpdate) {
         return <UpdatePerson />

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+// import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import PropTypes from 'prop-types';
+
 
 
 
@@ -13,11 +15,30 @@ const UpdateButton = MKButton.coloredButton()
   .build();
 
 const mapStateToProps = state => {
-  const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project,  notes, uid } = state;
-  return { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, uid };
+  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
+     project,  notes, uid } = state;
+  return { avatarUri,first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+     twitter, project, notes, uid };
 
 };
 class UpdatePerson extends Component {
+  static propTypes = {
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+    company: PropTypes.string,
+    instagram: PropTypes.string,
+    linkedin: PropTypes.string,
+    facebook: PropTypes.string,
+    twitter: PropTypes.string,
+    project: PropTypes.string,
+    notes: PropTypes.string,
+    uid: PropTypes.string,
+    formUpdate: PropTypes.func,
+    saveContact: PropTypes.func,
+  }
+
     static navigationOptions = {
         tabBarLabel: 'Contacts',
         tabBarIcon: ({ tintColor }) => (
@@ -29,9 +50,11 @@ class UpdatePerson extends Component {
         )
     }
     onUpdatePress() {
-      const { first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, uid } = this.props;
+      const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
+         project, notes, uid } = this.props;
 
-      this.props.saveContact({ first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project, notes, uid });
+      this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
+         facebook, twitter, project, notes, uid });
     }
   render() {
     return (

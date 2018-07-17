@@ -78,6 +78,7 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
+                avatarUri: '',
                 first_name: '',
                 last_name: '',
                 phone: '',
@@ -116,6 +117,7 @@ export default (state = initialState, action) => {
                 project: action.payload.project,
                 notes: action.payload.notes,
                 uid: action.payload.uid,
+                avatarUri: action.payload.avatarUri
             }
 
         case 'SAVE_CONTACT':
@@ -123,6 +125,7 @@ export default (state = initialState, action) => {
                 ...state,
                 toUpdate: false,
                 detailView: false,
+                avatarUri: '',
                 first_name: '',
                 last_name: '',
                 phone: '',
@@ -137,6 +140,7 @@ export default (state = initialState, action) => {
                 uid: '',
                 people: updatePeople(state.people, action.payload)
         }
+
         case 'PERMISSIONS_DENIED':
             return {
                 ...state,
@@ -172,6 +176,12 @@ export default (state = initialState, action) => {
                 personSelected: null,
                 people: filterPeople(state.people, action.payload)
         }
+
+        case 'ADD_PHOTO':
+          return {
+            ...state,
+            avatarUri: action.payload
+          }
 
         default:
             return state;
