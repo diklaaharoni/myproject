@@ -15,9 +15,9 @@ const UpdateButton = MKButton.coloredButton()
   .build();
 
 const mapStateToProps = state => {
-  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
-     project,  notes, uid } = state;
-  return { avatarUri,first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+     twitter, project,  notes, uid } = state;
+  return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
      twitter, project, notes, uid };
 
 };
@@ -35,6 +35,7 @@ class UpdatePerson extends Component {
     project: PropTypes.string,
     notes: PropTypes.string,
     uid: PropTypes.string,
+    avatarUri: PropTypes.string,
     formUpdate: PropTypes.func,
     saveContact: PropTypes.func,
   }
@@ -50,11 +51,11 @@ class UpdatePerson extends Component {
         )
     }
     onUpdatePress() {
-      const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
-         project, notes, uid } = this.props;
+      const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+         twitter, project, notes, uid } = this.props;
 
-      this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
-         facebook, twitter, project, notes, uid });
+      this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram,
+         linkedin, facebook, twitter, project, notes, uid });
     }
   render() {
     return (

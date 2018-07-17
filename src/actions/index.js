@@ -29,18 +29,18 @@ export const createNewContact = ({avatarUri, first_name, last_name, phone, email
     console.log('after firebase auth');
     const uid = currentUser.uid;
 
+    ///
+
     const data = {avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
        project, notes, created_by: currentUser.uid}
     data[uid] = true;
     // add a new user: data[new_user_uid] = true;
     return(dispatch) => {
       console.log('before data push');
-      debugger;
       const newContactRef = firebase.database().ref(`contacts`).push(data);
 
       newContactRef.then(function() {
         console.log('Success callback for firebase');
-        debugger;
         dispatch({type: 'NEW_CONTACT', payload: {...data, uid: newContactRef.key}});
       })
     };
@@ -105,6 +105,9 @@ export const saveContact = (contact) => {
   const {currentUser} = firebase.auth();
   contact.created_by = currentUser.uid;
   return(dispatch) => {
+
+/////
+
     console.log(`before update: ${contact.uid}`);
     firebase.database().ref(`contacts/${contact.uid}`)
     .set(contact)

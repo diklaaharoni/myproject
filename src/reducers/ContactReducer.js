@@ -6,6 +6,7 @@ const initialState = {
     detailView: false,
     searchTerm: '',
     personSelected: null,
+    avatarUri: '',
     first_name: '',
     last_name: '',
     phone: '',
@@ -55,6 +56,7 @@ export default (state = initialState, action) => {
               ...state,
               people: action.payload,
             }
+
         case 'SELECTED_PERSON':
             return {
                 ...state,
@@ -68,11 +70,13 @@ export default (state = initialState, action) => {
                 detailView: false,
                 personSelected: null,
             }
+
         case 'FORM_UPDATE':
             return {
                 ...state,
                 [action.payload.prop]: action.payload.value,
             }
+
         case 'NEW_CONTACT':
         console.log(action);
 
@@ -105,6 +109,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 toUpdate: true,
+                avatarUri: action.payload.avatarUri,
                 first_name: action.payload.first_name,
                 last_name: action.payload.last_name,
                 phone: action.payload.phone,
@@ -117,7 +122,6 @@ export default (state = initialState, action) => {
                 project: action.payload.project,
                 notes: action.payload.notes,
                 uid: action.payload.uid,
-                avatarUri: action.payload.avatarUri
             }
 
         case 'SAVE_CONTACT':
@@ -146,6 +150,7 @@ export default (state = initialState, action) => {
                 ...state,
                 toUpdate: false,
                 detailView: false,
+                avatarUri: '',
                 first_name: '',
                 last_name: '',
                 phone: '',
