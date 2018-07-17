@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
 // import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import PropTypes from 'prop-types';
+import ImagePicker from 'react-native-image-picker';
 
 
 
@@ -13,6 +14,10 @@ import PropTypes from 'prop-types';
 const UpdateButton = MKButton.coloredButton()
   .withText('UPDATE')
   .build();
+
+const AddImage = MKButton.coloredButton()
+.withText('Update Image')
+.build();
 
 const mapStateToProps = state => {
   const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
@@ -57,11 +62,38 @@ class UpdatePerson extends Component {
       this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram,
          linkedin, facebook, twitter, project, notes, uid });
     }
+
+    updateImage = () => {
+      ImagePicker.showImagePicker({
+        title: 'Select your profile image',
+        cancelButtonTitle: 'Cancel'
+        }, response => {
+        if (response.didCancel) {
+          alert('cancel')
+        }else if (response.error) {
+          alert('sorry, not working')
+        }else {
+          this.props.addPhoto(response.uri)
+        }
+      })
+    }
+
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
+        <View style={styles.header}>
+        <Image
+        source={{uri: this.props.avatarUri}}
+        style={styles.avatar}
+        />
           <Text style={styles.text}>UPDATE CONTACT</Text>
+          </View>
+          <View>
+            <AddImage
+              onPress={()=>this.updateImage()}
+            />
+          </View>
           <MKTextField
             textInputStyle={styles.fieldStyles}
             placeholder={'First name...'}
@@ -139,7 +171,7 @@ class UpdatePerson extends Component {
             value={this.props.notes}
             onChangeText={value => this.props.formUpdate({ prop: 'notes', value})}
           />
-          <View style={styles.addButton}>
+          <View style={styles.updateButton}>
             <UpdateButton onPress={this.onUpdatePress.bind(this)}/>
           </View>
         </View>
@@ -162,12 +194,16 @@ const styles = StyleSheet.create({
     height: 40,
     color: MKColor.Orange,
   },
-  addButton:{
+  addButton: {
     marginTop: 20,
+  },
+  updateButton: {
+    marginTop: 20,
+    marginBottom: 40,
   },
   text: {
     fontSize: 24,
-    textAlign: 'center',
+    marginLeft: 20,
     color: 'blue',
   },
   closeIcon: {
@@ -177,6 +213,14 @@ const styles = StyleSheet.create({
       color: 'grey',
       paddingTop: 10,
       backgroundColor: 'rgba(255,255,255,0)',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+  },
+  header: {
+    flexDirection: 'row',
+    marginBottom: 10,
   },
 });
 export default connect(mapStateToProps, actions)(UpdatePerson);
