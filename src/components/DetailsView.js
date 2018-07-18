@@ -155,16 +155,16 @@ console.log("bla", this.props.userId);
           </View>
           {this.props.person.created_by === this.props.userId &&
             <View style={styles.editDeleteArea}>
-            <TouchableOpacity style={styles.sections}
-            onPress={() => { this.props.updateContact(this.props.person)}}>
-            <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
-            <Text style={styles.editDeleteText}>EDIT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.sections}
-            onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
-            <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
-            <Text style={styles.editDeleteText}>DELETE</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.sections}
+                onPress={() => { this.props.updateContact(this.props.person)}}>
+                <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
+                <Text style={styles.editDeleteText}>EDIT</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sections}
+                onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
+                <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
+                <Text style={styles.editDeleteText}>DELETE</Text>
+              </TouchableOpacity>
             </View>
           }
         </View>
@@ -239,8 +239,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   textIcons: {
-      height:60,
-      width: 60,
+      height:50,
+      width: 50,
       marginBottom: 10,
   },
   actionArea: {
