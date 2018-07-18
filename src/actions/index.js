@@ -76,7 +76,7 @@ export const loadFilteredContacts = (searchTerm) => {
     firebase.database().ref(`contacts`).orderByChild(currentUser.uid)
     .once('value', (snapshot) => {
       console.log('got value after LIC');
-      dispatch({type: 'INITIAL_FETCH', payload: filterPeople(snapshot.val(), searchTerm)});
+      dispatch({type: 'INITIAL_FETCH', payload: {snapshots: filterPeople(snapshot.val(), searchTerm), userId: currentUser.uid}});
     });
   };
 };
