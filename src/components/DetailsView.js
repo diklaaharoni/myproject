@@ -122,20 +122,6 @@ console.log("bla", this.props.userId);
              <Text style={theme.cardContentStyle}>{this.props.person.notes}</Text>
           </View>
         }
-        {this.props.person.created_by === this.props.userId &&
-          <View style={styles.editArea}>
-              <TouchableOpacity style={styles.sections}
-                 onPress={() => { this.props.updateContact(this.props.person)}}>
-                 <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
-                 <Text style={styles.editDeleteText}>EDIT</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sections}
-                 onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
-                 <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
-                 <Text style={styles.editDeleteText}>DELETE</Text>
-              </TouchableOpacity>
-          </View>
-        }
 
           <View style={styles.actionArea}>
             {!!this.props.person.instagram &&
@@ -163,10 +149,24 @@ console.log("bla", this.props.userId);
               <TouchableOpacity
                   onPress={() => { this.handleClick(`${this.props.person.twitter}`)}}
               >
-                  <Image source={require('../images/twitter_logo.png')} style={styles.textIcons}/>
+                  <Image source={require('../images/twittericon.png')} style={styles.textIcons}/>
               </TouchableOpacity>
             }
           </View>
+          {this.props.person.created_by === this.props.userId &&
+            <View style={styles.editDeleteArea}>
+            <TouchableOpacity style={styles.sections}
+            onPress={() => { this.props.updateContact(this.props.person)}}>
+            <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
+            <Text style={styles.editDeleteText}>EDIT</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sections}
+            onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
+            <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
+            <Text style={styles.editDeleteText}>DELETE</Text>
+            </TouchableOpacity>
+            </View>
+          }
         </View>
       </ScrollView>
     );
@@ -257,9 +257,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sections: {
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingLeft: 10,
     width: 100,
   },
   deleteIcon: {
@@ -268,8 +265,9 @@ const styles = StyleSheet.create({
   },
   editDeleteText: {
     marginTop: 10,
-    paddingBottom: 20,
     marginBottom: 20,
+    fontSize: 12,
+    marginLeft: 15,
   },
   editDeleteArea: {
     flexDirection: 'row',
