@@ -69,8 +69,7 @@ console.log("bla", this.props.userId);
           />
           <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
               onPress={() => this.props.noneSelected()} />
-          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} 
-           {this.props.person.last_name}</Text>
+          <Text style={[theme.cardTitleStyle, styles.title1]}>{this.props.person.first_name} {this.props.person.last_name}</Text>
           <Text style={[theme.cardTitleStyle, styles.title2]}>{this.props.person.company}</Text>
          <View style={styles.shareArea}>
               <Text style={theme.cardContentStyle}>Share</Text>
