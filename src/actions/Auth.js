@@ -17,6 +17,7 @@ export const logout = () => {
   firebase.auth().signOut().then(function() {
     // Sign-out successful.
   }).catch(function(error) {
+    console.log(error);
     // An error happened.
   });
 }

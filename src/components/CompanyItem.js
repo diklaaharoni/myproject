@@ -31,7 +31,7 @@ const CompanyItem = (props) => {
             >
             <View>
               <Text   style={[theme.cardActionStyle, styles.action]}>
-                {name.first_name} {name.last_name} - Project: {name.project}
+                {name.first_name} {name.last_name}  {name.job_descriptiom}
               </Text>
             </View>
             </TouchableWithoutFeedback>

@@ -19,10 +19,10 @@ const AddImage = MKButton.coloredButton()
 .build();
 
 const mapStateToProps = state => {
-  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, project,
+  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, job_descriptiom,
      notes } = state;
   return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
-     twitter, project, notes };
+     twitter, job_descriptiom, notes };
 
 };
 class AddPerson extends Component {
@@ -36,7 +36,7 @@ class AddPerson extends Component {
     linkedin: PropTypes.string,
     facebook: PropTypes.string,
     twitter: PropTypes.string,
-    project: PropTypes.string,
+    job_descriptiom: PropTypes.string,
     notes: PropTypes.string,
     uid: PropTypes.string,
     createNewContact:PropTypes.func,
@@ -63,10 +63,10 @@ class AddPerson extends Component {
   onAddPress() {
     const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
        twitter,
-       project, notes } = this.props;
+       job_descriptiom, notes } = this.props;
 
     this.props.createNewContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
-       facebook, twitter, project, notes });
+       facebook, twitter, job_descriptiom, notes });
 
     this.props.navigation.navigate('PeopleList');
   }
@@ -165,10 +165,10 @@ class AddPerson extends Component {
           />
           <MKTextField
           textInputStyle={styles.fieldStyles}
-          placeholder={'Project...'}
+          placeholder={'Job Descriptiom...'}
           tintColor={MKColor.Blue}
-          value={this.props.project}
-          onChangeText={value => this.props.formUpdate({ prop: 'project', value})}
+          value={this.props.job_descriptiom}
+          onChangeText={value => this.props.formUpdate({ prop: 'job_descriptiom', value})}
           />
           <MKTextField
           textInputStyle={styles.fieldStyles}

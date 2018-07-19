@@ -49,7 +49,7 @@ class DetailsView extends Component {
        Share.share({message: `${person.first_name}
           ${person.last_name} ${person.phone} ${person.email}
            ${person.company} ${person.instagram}
-            ${person.linkedin} ${person.facebook} ${person.twitter} ${person.project} ${person.notes}` })
+            ${person.linkedin} ${person.facebook} ${person.twitter} ${person.job_descriptiom} ${person.notes}` })
     }
 
 
@@ -110,10 +110,10 @@ console.log("bla", this.props.userId);
              <Text style={theme.cardContentStyle}>{this.props.person.email}</Text>
           </View>
         }
-          {!!this.props.person.project &&
+          {!!this.props.person.job_descriptiom &&
             <View style={styles.textArea}>
                <MaterialIcon name={'assignment'} size={40} style={styles.icon}/>
-               <Text style={theme.cardContentStyle}>{this.props.person.project}</Text>
+               <Text style={theme.cardContentStyle}>{this.props.person.job_descriptiom}</Text>
             </View>
           }
           {!!this.props.person.notes &&

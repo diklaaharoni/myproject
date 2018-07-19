@@ -22,9 +22,9 @@ const AddImage = MKButton.coloredButton()
 
 const mapStateToProps = state => {
   const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
-     twitter, project,  notes, uid } = state;
+     twitter, job_descriptiom,  notes, uid } = state;
   return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
-     twitter, project, notes, uid };
+     twitter, job_descriptiom, notes, uid };
 
 };
 class UpdatePerson extends Component {
@@ -38,7 +38,7 @@ class UpdatePerson extends Component {
     linkedin: PropTypes.string,
     facebook: PropTypes.string,
     twitter: PropTypes.string,
-    project: PropTypes.string,
+    job_descriptiom: PropTypes.string,
     notes: PropTypes.string,
     uid: PropTypes.string,
     avatarUri: PropTypes.string,
@@ -58,10 +58,10 @@ class UpdatePerson extends Component {
     }
     onUpdatePress() {
       const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
-         twitter, project, notes, uid } = this.props;
+         twitter, job_descriptiom, notes, uid } = this.props;
 
       this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram,
-         linkedin, facebook, twitter, project, notes, uid });
+         linkedin, facebook, twitter, job_descriptiom, notes, uid });
     }
 
     updateImage = () => {
@@ -163,10 +163,10 @@ class UpdatePerson extends Component {
           />
           <MKTextField
             textInputStyle={styles.fieldStyles}
-            placeholder={'Project...'}
+            placeholder={'Job Descriptiom...'}
             tintColor={MKColor.Blue}
-            value={this.props.project}
-            onChangeText={value => this.props.formUpdate({ prop: 'project', value})}
+            value={this.props.job_descriptiom}
+            onChangeText={value => this.props.formUpdate({ prop: 'job_descriptiom', value})}
           />
           <MKTextField
             textInputStyle={styles.fieldStyles}
