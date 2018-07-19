@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, Linking } from 'react-native';
 import Login from './Login';
 import Loader from './Loader';
 import Navigation from './Navigation';
@@ -46,7 +46,36 @@ export default class App extends React.Component {
         this.setState({loggedIn: false})
       }
     })
-  }
+
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then(url => {
+        this.navigateToProperRoute(url);
+      });
+    } else {
+        Linking.addEventListener('url', this.handleOpenURL);
+      }
+    }
+
+    componentWillUnmount() { // C
+      Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL = (event) => { // D
+      this.navigateToProperRoute(event.url);
+    }
+
+    navigateToProperRoute = (url) => { // E
+      if (url) {
+        const route = url.replace(/.*?:\/\//g, '');
+        const id = route.match(/\/([^\/]+)\/?$/)[1];
+        const routeName = route.split('/')[0];
+
+        if (routeName === 'contact') {
+          console.log(route, id);
+          //navigate('People', { id, name: 'chris' })
+        }
+      }
+    }
 
   renderInitialView() {
     switch (this.state.loggedIn) {
