@@ -157,7 +157,7 @@ console.log("bla", this.props.userId);
             <View style={styles.editDeleteArea}>
               <TouchableOpacity style={styles.sections}
                 onPress={() => { this.props.updateContact(this.props.person)}}>
-                <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
+                <MaterialIcon name={'create'} size={40} style={styles.editIcon}/>
                 <Text style={styles.editDeleteText}>EDIT</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sections}
@@ -256,26 +256,24 @@ const styles = StyleSheet.create({
   },
   editIcon: {
     color: '#26a6e4',
-    marginLeft: 10,
+    paddingLeft: 30,
   },
   sections: {
     width: 100,
   },
   deleteIcon: {
     color: '#e9a69a',
-    marginLeft: 10,
   },
   editDeleteText: {
     marginTop: 10,
     marginBottom: 20,
     fontSize: 12,
-    marginLeft: 15,
+    marginLeft: 30,
   },
   editDeleteArea: {
     flexDirection: 'row',
     paddingTop: 20,
     justifyContent: 'space-around',
-    alignItems: 'center',
     backgroundColor: 'rgba(211,211,211, 0.3)',
     marginBottom: 10,
   },
