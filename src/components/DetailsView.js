@@ -112,7 +112,7 @@ console.log("bla", this.props.userId);
         }
           {!!this.props.person.job_descriptiom &&
             <View style={styles.textArea}>
-               <MaterialIcon name={'assignment'} size={40} style={styles.icon}/>
+               <MaterialIcon name={'description'} size={40} style={styles.icon}/>
                <Text style={theme.cardContentStyle}>{this.props.person.job_descriptiom}</Text>
             </View>
           }
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   icon: {
       color: 'orange',
       marginBottom: 20,
-      marginLeft: 10,
+      marginLeft: 5,
   },
   textArea: {
       flexDirection: 'row',

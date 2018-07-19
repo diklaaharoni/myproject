@@ -27,6 +27,7 @@ const mapStateToProps = state => {
 };
 class AddPerson extends Component {
   static propTypes = {
+    avatarUri: PropTypes.string,
     first_name: PropTypes.string,
     last_name: PropTypes.string,
     phone: PropTypes.string,
