@@ -11,11 +11,11 @@ import PropTypes from 'prop-types';
 
 
 const AddButton = MKButton.coloredButton()
-.withText('ADD')
+.withText('SAVE')
 .build();
 
 const AddImage = MKButton.coloredButton()
-.withText('ADD Image')
+.withText('ADD IMAGE')
 .build();
 
 const mapStateToProps = state => {
@@ -91,7 +91,7 @@ class AddPerson extends Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
-          <Text style={styles.text}>ADD A NEW CONTACT</Text>
+          <Text style={styles.text}>CREATE YOUR CARD</Text>
         <View>
           <Image
             source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     textAlign: 'center',
-    color: 'blue',
+    color: 'grey',
   },
   avatar: {
     width: 50,
