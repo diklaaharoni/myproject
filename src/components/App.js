@@ -1,7 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, Linking } from 'react-native';
 import Login from './Login';
 import Loader from './Loader';
 import Navigation from './Navigation';
@@ -9,6 +9,8 @@ import reducers from '../reducers/ContactReducer';
 import Thunk from 'redux-thunk';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
+import * as actions from '../actions';
+
 
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -25,10 +27,11 @@ const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ &&
    window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = { loggedIn: null }
   componentDidMount() {
     const firebase = require("firebase")
+    if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: "AIzaSyBJDEqZKq936PyhrzOjV4CsIhO2z9h51ZA",
       authDomain: "myproject-17b44.firebaseapp.com",
@@ -37,6 +40,7 @@ export default class App extends React.Component {
       storageBucket: "myproject-17b44.appspot.com",
       messagingSenderId: "563231765470"
     })
+  }
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
@@ -46,7 +50,37 @@ export default class App extends React.Component {
         this.setState({loggedIn: false})
       }
     })
-  }
+
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then(url => {
+        this.navigateToProperRoute(url);
+      });
+    } else {
+        Linking.addEventListener('url', this.handleOpenURL);
+      }
+    }
+
+    componentWillUnmount() { // C
+      Linking.removeEventListener('url', this.handleOpenURL);
+    }
+
+    handleOpenURL = (event) => { // D
+      console.log(event.url);
+      this.navigateToProperRoute(event.url);
+    }
+
+    navigateToProperRoute = (url) => { // E
+      if (url) {
+        const route = url.replace(/.*?:\/\//g, '');
+        const id = route.match(/\/([^\/]+)\/?$/)[1];
+        const routeName = route.split('/')[0];
+
+        if (routeName === 'contact') {
+          console.log(route, id);
+          store.dispatch(actions.loadPerson(id))
+        }
+      }
+    }
 
   renderInitialView() {
     switch (this.state.loggedIn) {
@@ -75,3 +109,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
