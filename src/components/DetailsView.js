@@ -46,15 +46,12 @@ class DetailsView extends Component {
 
     share = () => {
       const person = this.props.person
-       Share.share({message: `${person.first_name}
-          ${person.last_name} ${person.phone} ${person.email}
-           ${person.company} ${person.instagram}
-            ${person.linkedin} ${person.facebook} ${person.twitter} ${person.job_descriptiom} ${person.notes}` })
+      const card = `http://www.contacts.com/${person.uid}`
+       Share.share({message: `${person.first_name} ${person.last_name} ${card}`})
     }
 
 
   render() {
-console.log("bla", this.props.userId);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[theme.cardStyle, styles.card]}>
@@ -166,7 +163,7 @@ console.log("bla", this.props.userId);
                 <Text style={styles.editDeleteText}>DELETE</Text>
               </TouchableOpacity>
             </View>
-          }
+          } 
         </View>
       </ScrollView>
     );

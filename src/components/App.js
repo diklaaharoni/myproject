@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { StyleSheet, Platform, Linking } from 'react-native';
 import Login from './Login';
@@ -9,6 +9,8 @@ import reducers from '../reducers/ContactReducer';
 import Thunk from 'redux-thunk';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
+import * as actions from '../actions';
+
 
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -25,10 +27,11 @@ const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ &&
    window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = { loggedIn: null }
   componentDidMount() {
     const firebase = require("firebase")
+    if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: "AIzaSyBJDEqZKq936PyhrzOjV4CsIhO2z9h51ZA",
       authDomain: "myproject-17b44.firebaseapp.com",
@@ -37,6 +40,7 @@ export default class App extends React.Component {
       storageBucket: "myproject-17b44.appspot.com",
       messagingSenderId: "563231765470"
     })
+  }
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
@@ -61,6 +65,7 @@ export default class App extends React.Component {
     }
 
     handleOpenURL = (event) => { // D
+      console.log(event.url);
       this.navigateToProperRoute(event.url);
     }
 
@@ -72,7 +77,7 @@ export default class App extends React.Component {
 
         if (routeName === 'contact') {
           console.log(route, id);
-          //navigate('People', { id, name: 'chris' })
+          store.dispatch(actions.loadPerson(id))
         }
       }
     }
@@ -104,3 +109,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;

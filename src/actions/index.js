@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 
 export const selectPerson = (peopleId) => {
+  console.log(peopleId);
     return {
         type: 'SELECTED_PERSON',
         payload: peopleId,
@@ -59,6 +60,25 @@ export const loadInitialContacts = () => {
   };
 };
 
+export const loadPerson = (id) => {
+  console.log('in loadPerson');
+  const {currentUser} = firebase.auth();
+  return(dispatch) => {
+    console.log('in dispatch for LC. user id: ' + id);
+    firebase.database().ref(`contacts`).orderByChild(currentUser.uid)
+    .once('value', (snapshot) => {
+      console.log('got value after LC', findContact(snapshot.val(), id));
+      dispatch({type: 'SELECTED_PERSON', payload: findContact(snapshot.val(), id)});
+    });
+  };
+};
+
+const findContact = (oldPeople, uid) => {
+  const contact = _.filter(oldPeople, (person) => {
+    return person.uid === uid;
+  })
+  return contact[0];
+};
 
 const filterPeople = (oldPeople, searchTerm) => {
   const filteredList = _.filter(oldPeople, (person) => {
