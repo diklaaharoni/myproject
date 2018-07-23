@@ -9,6 +9,8 @@ import PeopleDetail from './PeopleDetail';
 import { Button } from 'react-native-elements';
 import * as actions from '../actions';
 import PropTypes from 'prop-types';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+
 
 
 const mapStateToProps = state => {
@@ -51,6 +53,12 @@ class ContactList extends React.Component {
     this.props.loadFilteredContacts(this.state.searchTerm)
   }
 
+  deleteSearch()  {
+    // this.props.loadInitialContacts();
+    console.log(this.state);
+    this.props.loadInitialContacts();
+  }
+
 
 
 
@@ -85,6 +93,8 @@ class ContactList extends React.Component {
             placeholder="Search..."
             onChangeText={(text) => this.setState({searchTerm: text})}
           />
+          <SimpleIcon name={'close'} size={20} style={styles.closeIcon}
+              onPress={() => this.deleteSearch()} />
           <Button
             buttonStyle={styles.buttonStyle}
             title="Search"
@@ -121,7 +131,10 @@ const styles = StyleSheet.create({
   },
   list: {
     marginRight: 10,
-  }
+  },
+  closeIcon: {
+    paddingTop: 10,
+  },
 });
 
 export default connect(mapStateToProps, actions)(ContactList);
