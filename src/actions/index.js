@@ -24,7 +24,7 @@ export const formUpdate = ({ prop, value }) => {
 };
 
 export const createNewContact = ({avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
-   facebook, twitter, job_descriptiom, notes}) => {
+   facebook, twitter, job_description, notes}) => {
     console.log('in createNewContact');
     const {currentUser} = firebase.auth();
     console.log('after firebase auth');
@@ -33,7 +33,7 @@ export const createNewContact = ({avatarUri, first_name, last_name, phone, email
     ///
 
     const data = {avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
-       job_descriptiom, notes, created_by: currentUser.uid}
+       job_description, notes, created_by: currentUser.uid}
     data[uid] = true;
     // add a new user: data[new_user_uid] = true;
     return(dispatch) => {
@@ -129,6 +129,8 @@ export const saveContact = (contact) => {
 /////
 
     console.log(`before update: ${contact.uid}`);
+    console.log(`before update`, contact);
+
     firebase.database().ref(`contacts/${contact.uid}`)
     .set(contact)
     .then(() => {

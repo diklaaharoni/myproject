@@ -16,7 +16,7 @@ const initialState = {
     linkedin: '',
     facebook: '',
     twitter: '',
-    job_descriptiom: '',
+    job_description: '',
     notes: '',
     toUpdate: false,
 };
@@ -94,7 +94,7 @@ export default (state = initialState, action) => {
                 linkedin: '',
                 facebook: '',
                 twitter: '',
-                job_descriptiom: '',
+                job_description: '',
                 notes: '',
                 detailView: false,
                 people: addPeople(state.people, action.payload)
@@ -121,7 +121,7 @@ export default (state = initialState, action) => {
                 linkedin: action.payload.linkedin,
                 facebook: action.payload.facebook,
                 twitter: action.payload.twitter,
-                job_descriptiom: action.payload.job_descriptiom,
+                job_description: action.payload.job_description,
                 notes: action.payload.notes,
                 uid: action.payload.uid,
             }
@@ -141,7 +141,7 @@ export default (state = initialState, action) => {
                 linkedin: '',
                 facebook: '',
                 twitter: '',
-                job_descriptiom: '',
+                job_description: '',
                 notes: '',
                 uid: '',
                 people: updatePeople(state.people, action.payload)
@@ -162,7 +162,7 @@ export default (state = initialState, action) => {
                 linkedin: '',
                 facebook: '',
                 twitter: '',
-                job_descriptiom: '',
+                job_description: '',
                 notes: '',
                 uid: '',
         }

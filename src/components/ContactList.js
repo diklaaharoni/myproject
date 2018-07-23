@@ -91,7 +91,7 @@ class ContactList extends React.Component {
             onPress={() => this.handelSearch()}
           />
         </View>
-        <View>
+        <View style={styles.list}>
           {this.renderInitialView()}
         </View>
       </View>
@@ -103,10 +103,11 @@ class ContactList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: 400,
+    width: '100%',
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10,
+    marginBottom: 40,
   },
   searchBar: {
     flexDirection: 'row',
@@ -118,6 +119,9 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 8,
   },
+  list: {
+    marginRight: 10,
+  }
 });
 
 export default connect(mapStateToProps, actions)(ContactList);

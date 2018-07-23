@@ -13,6 +13,7 @@ const PeopleItem = (props) => {
   return(
     <TouchableWithoutFeedback
       onPress={() => props.selectPerson(props.people)}
+      style={styles.container}
     >
       <View style={[theme.cardStyle, styles.card]}>
         <Image
@@ -41,7 +42,10 @@ PeopleItem.propTypes = {
 
 const styles = StyleSheet.create({
   card: {
-    marginTop: 10,
+    width: '100%',
+  },
+  container: {
+    width: '100%',
   },
   title: {
     top: 20,

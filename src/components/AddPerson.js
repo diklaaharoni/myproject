@@ -19,10 +19,10 @@ const AddImage = MKButton.coloredButton()
 .build();
 
 const mapStateToProps = state => {
-  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, job_descriptiom,
+  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, job_description,
      notes } = state;
   return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
-     twitter, job_descriptiom, notes };
+     twitter, job_description, notes };
 
 };
 class AddPerson extends Component {
@@ -37,7 +37,7 @@ class AddPerson extends Component {
     linkedin: PropTypes.string,
     facebook: PropTypes.string,
     twitter: PropTypes.string,
-    job_descriptiom: PropTypes.string,
+    job_description: PropTypes.string,
     notes: PropTypes.string,
     uid: PropTypes.string,
     createNewContact:PropTypes.func,
@@ -64,10 +64,10 @@ class AddPerson extends Component {
   onAddPress() {
     const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
        twitter,
-       job_descriptiom, notes } = this.props;
+       job_description, notes } = this.props;
 
     this.props.createNewContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
-       facebook, twitter, job_descriptiom, notes });
+       facebook, twitter, job_description, notes });
 
     this.props.navigation.navigate('PeopleList');
   }
@@ -166,10 +166,10 @@ class AddPerson extends Component {
           />
           <MKTextField
           textInputStyle={styles.fieldStyles}
-          placeholder={'Job Descriptiom...'}
+          placeholder={'Job Description...'}
           tintColor={MKColor.Blue}
-          value={this.props.job_descriptiom}
-          onChangeText={value => this.props.formUpdate({ prop: 'job_descriptiom', value})}
+          value={this.props.job_description}
+          onChangeText={value => this.props.formUpdate({ prop: 'job_description', value})}
           />
           <MKTextField
           textInputStyle={styles.fieldStyles}

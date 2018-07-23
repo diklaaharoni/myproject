@@ -34,7 +34,7 @@ class PeopleDetail extends Component {
     }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.renderDetails()}
       </View>
     );
@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: 'lightgrey',
     borderWidth: 0.5,
+  },
+  container: {
+    width: '100%',
   },
   title1: {
       top: 10,

@@ -19,6 +19,7 @@ const Navigation = createBottomTabNavigator({
     showLabel: false,
     style: {
       backgroundColor: 'grey',
+      marginTop: 10,
     },
   },
 });

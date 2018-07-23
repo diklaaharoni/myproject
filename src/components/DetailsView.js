@@ -53,7 +53,7 @@ class DetailsView extends Component {
 
   render() {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View style={[theme.cardStyle, styles.card]}>
           <Image
               source={require('../images/light-blue.jpg')}
@@ -107,10 +107,10 @@ class DetailsView extends Component {
              <Text style={theme.cardContentStyle}>{this.props.person.email}</Text>
           </View>
         }
-          {!!this.props.person.job_descriptiom &&
+          {!!this.props.person.job_description &&
             <View style={styles.textArea}>
                <MaterialIcon name={'description'} size={40} style={styles.icon}/>
-               <Text style={theme.cardContentStyle}>{this.props.person.job_descriptiom}</Text>
+               <Text style={theme.cardContentStyle}>{this.props.person.job_description}</Text>
             </View>
           }
           {!!this.props.person.notes &&
@@ -163,7 +163,16 @@ class DetailsView extends Component {
                 <Text style={styles.editDeleteText}>DELETE</Text>
               </TouchableOpacity>
             </View>
-          } 
+          }
+          {this.props.person.created_by !== this.props.userId &&
+            <View style={styles.editDeleteArea}>
+              <TouchableOpacity style={styles.sections}
+                onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
+                <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
+                <Text style={styles.editDeleteText}>DELETE</Text>
+              </TouchableOpacity>
+            </View>
+          }
         </View>
       </ScrollView>
     );
@@ -173,11 +182,15 @@ class DetailsView extends Component {
 
 const styles = StyleSheet.create({
   card: {
+    width: '100%',
     marginTop: 10,
     paddingBottom: 20,
     marginBottom: 20,
     borderColor: 'lightgrey',
     borderWidth: 0.5,
+  },
+  container: {
+    width: '100%',
   },
   title1: {
       top: 10,
@@ -215,7 +228,7 @@ const styles = StyleSheet.create({
   closeIcon: {
       position: 'absolute',
       top: 5,
-      left: 345,
+      left: 300,
       color: 'grey',
       paddingTop: 10,
       backgroundColor: 'rgba(255,255,255,0)',
