@@ -29,10 +29,11 @@ const CompanyItem = (props) => {
             <TouchableWithoutFeedback key={name.uid}
               onPress={() => props.selectPerson(name.uid)}
             >
-            <View>
-              <Text   style={[theme.cardActionStyle, styles.action]}>
-                {name.first_name} {name.last_name}  {name.job_description}
+            <View style={[theme.cardActionStyle, styles.action]}>
+              <Text style={styles.nameDetails}>
+                {name.first_name} {name.last_name}
               </Text>
+              <Text style={styles.jobDetails}> {name.job_description} </Text>
             </View>
             </TouchableWithoutFeedback>
           );
@@ -59,7 +60,10 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 100,
-    backgroundColor: 'rgba(60, 164, 240, 0.19)',
+    // backgroundColor: 'rgba(60, 164, 240, 0.19)',
+    borderRadius: 10,
+    borderColor: 'grey',
+    borderWidth: 0.5,
   },
   image2: {
       borderRadius: 10,
@@ -72,9 +76,14 @@ const styles = StyleSheet.create({
   },
   action: {
     backgroundColor: 'grey',
-    color: 'white',
+    // color: 'white',
     paddingTop: 5,
     paddingBottom: 5,
+    // borderBottomWidth: 0.5,
+    marginBottom: 0.5,
+    borderBottomLeftRadius: 8,
+    borderTopLeftRadius: 8,
+    flexDirection: 'row',
   },
   icon: {
     position: 'absolute',
@@ -82,6 +91,15 @@ const styles = StyleSheet.create({
     left: 10,
     color: 'white',
     backgroundColor: 'rgba(255,255,255,0)',
+  },
+  nameDetails: {
+    color: 'white',
+    marginRight: 10,
+  },
+  jobDetails: {
+    color: 'rgb(189,226,243)',
+    top: 3,
+    fontSize: 12,
   },
 });
 

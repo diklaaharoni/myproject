@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: '#e5e5e5',
+    // backgroundColor: '#e5e5e5',
   },
 
 });

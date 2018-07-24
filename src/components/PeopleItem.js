@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'rgba(60, 164, 240, 0.19)',
     borderRadius: 10,
     borderColor: 'grey',
+    borderWidth: 0.5,
   },
   image2: {
       borderRadius: 10,
