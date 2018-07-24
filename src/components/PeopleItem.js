@@ -26,7 +26,7 @@ const PeopleItem = (props) => {
           style={styles.image2}
         />
         <Text style={[theme.cardTitleStyle, styles.title]}>{props.people.first_name} {props.people.last_name}</Text>
-        <Text style={[theme.cardActionStyle, styles.action]}>{props.people.company}</Text>
+        <Text style={[theme.cardTitleStyle, styles.action]}>{props.people.company}</Text>
       </View>
     </TouchableWithoutFeedback>
   )
@@ -48,14 +48,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    top: 20,
+    top: 15,
     left: 80,
     fontSize: 24,
     marginLeft: 15,
   },
   image: {
     height: 100,
-    backgroundColor: 'rgba(60, 164, 240, 0.19)',
+    // backgroundColor: 'rgba(60, 164, 240, 0.19)',
+    borderRadius: 10,
+    borderColor: 'grey',
   },
   image2: {
       borderRadius: 10,
@@ -67,8 +69,11 @@ const styles = StyleSheet.create({
       position: 'absolute',
   },
   action: {
-    backgroundColor: 'grey',
-    color: 'white',
+    top: 45,
+    left: 80,
+    fontSize: 16,
+    marginLeft: 15,
+    color: 'grey',
   },
   icon: {
     position: 'absolute',
