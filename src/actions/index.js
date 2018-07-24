@@ -29,7 +29,7 @@ export const createNewContact = ({avatarUri, first_name, last_name, phone, email
     const {currentUser} = firebase.auth();
     console.log('after firebase auth');
     const uid = currentUser.uid;
-
+    const userContacts = firebase.database().ref('userContacts')
     ///
 
     const data = {avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
@@ -39,10 +39,28 @@ export const createNewContact = ({avatarUri, first_name, last_name, phone, email
     return(dispatch) => {
       console.log('before data push');
       const newContactRef = firebase.database().ref(`contacts`).push(data);
-
+      console.log('before my contacts fetch')
       newContactRef.then(function() {
-        console.log('Success callback for firebase');
-        dispatch({type: 'NEW_CONTACT', payload: {...data, uid: newContactRef.key}});
+        userContacts.child(currentUser.uid).once('value', function(snapshot) {
+          // not exist in firebase
+          if (!snapshot.val()) {
+            userContacts.child(currentUser.uid).update({my_contacts: [newContactRef.key]})
+          } else {
+            // exist, just need to be updated
+            const my_contacts = snapshot.val().my_contacts;
+            if (!my_contacts.includes(newContactRef.key)) {
+              my_contacts.push(newContactRef.key)
+            }
+            userContacts.child(currentUser.uid).update({
+              my_contacts: my_contacts
+            }).then(function() {
+              console.log('Success callback for firebase');
+              dispatch({type: 'NEW_CONTACT', payload: {...data, uid: newContactRef.key}});
+            });
+          }
+        }).catch(function(err) {
+          console.log(err)
+        });
       })
     };
 };
@@ -71,6 +89,32 @@ export const loadPerson = (id) => {
       dispatch({type: 'SELECTED_PERSON', payload: findContact(snapshot.val(), id)});
     });
   };
+};
+
+export const addToMyContactList = (id) => {
+  console.log('in addToMyContactList');
+  const {currentUser} = firebase.auth();
+  console.log('in dispatch for addToMyContactList. contact id: ' + id, 'user id', currentUser);
+  const userContacts = firebase.database().ref('userContacts')
+  userContacts.child(currentUser.uid).once('value', function(snapshot) {
+    // not exist in firebase
+    if (!snapshot.val()) {
+      userContacts.child(currentUser.uid).update({my_contacts: [id]})
+    } else {
+      // exist, just need to be updated
+      const my_contacts = snapshot.val().my_contacts;
+      if (!my_contacts.includes(id)) {
+        my_contacts.push(id)
+      }
+      userContacts.child(currentUser.uid).update({
+        my_contacts: my_contacts
+      }).then(function() {
+        loadPerson(id);
+      });
+    }
+  }).catch(function(err) {
+    console.log(err)
+  });
 };
 
 const findContact = (oldPeople, uid) => {
