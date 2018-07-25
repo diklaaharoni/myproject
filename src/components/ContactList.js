@@ -26,6 +26,14 @@ const mapStateToProps = state => {
 }
 
 class ContactList extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      searchTerm: '',
+    }
+  }
+
   static propTypes = {
     detailView: PropTypes.bool,
     people: PropTypes.array,
@@ -58,6 +66,9 @@ class ContactList extends React.Component {
 
     console.log(this.state);
     this.props.loadInitialContacts();
+    this.setState({
+      searchTerm: "",
+    });
   }
 
 
@@ -92,6 +103,7 @@ class ContactList extends React.Component {
           <TextInput
             style={styles.searchText}
             placeholder="Search..."
+            value={this.state.searchTerm}
             onChangeText={(text) => this.setState({searchTerm: text})}
           />
           <SimpleIcon name={'close'} size={20} style={styles.closeIcon}
