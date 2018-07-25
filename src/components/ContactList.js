@@ -55,6 +55,7 @@ class ContactList extends React.Component {
 
   deleteSearch()  {
     // this.props.loadInitialContacts();
+
     console.log(this.state);
     this.props.loadInitialContacts();
   }
