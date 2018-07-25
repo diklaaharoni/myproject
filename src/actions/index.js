@@ -23,7 +23,7 @@ export const formUpdate = ({ prop, value }) => {
     };
 };
 
-export const createNewContact = ({avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
+export const createNewContact = ({companyUri ,avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
    facebook, twitter, job_description, notes}) => {
     console.log('in createNewContact');
     const {currentUser} = firebase.auth();
@@ -32,7 +32,7 @@ export const createNewContact = ({avatarUri, first_name, last_name, phone, email
     const userContacts = firebase.database().ref('userContacts')
     ///
 
-    const data = {avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
+    const data = {companyUri ,avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter,
        job_description, notes, created_by: currentUser.uid}
     data[uid] = true;
     // add a new user: data[new_user_uid] = true;
@@ -149,11 +149,17 @@ export const loadFilteredContacts = (searchTerm) => {
 export const deleteContact = (uid) => {
   const {currentUser} = firebase.auth();
   return(dispatch) => {
-    firebase.database().ref(`contacts/${uid}`)
-    .remove()
-    .then(() => {
-      dispatch({type: 'DELETE_CONTACT', payload: uid});
-    });
+    firebase.database().ref(`contacts/${uid}`).once('value').then(contact => {
+      if (contact.val().created_by === currentUser.uid) {
+        firebase.database().ref(`contacts/${uid}`)
+        .remove()
+        .then(() => {
+          dispatch({type: 'DELETE_CONTACT', payload: uid});
+        });
+      } else {
+        dispatch({type: 'DELETE_CONTACT', payload: uid});
+      }
+    })
   };
 }
 
@@ -227,6 +233,13 @@ export const logout = () => {
 export const addPhoto = (uri) => {
   return {
     type: 'ADD_PHOTO',
+    payload: uri,
+  };
+}
+
+export const addCompanyPhoto = (uri) => {
+  return {
+    type: 'ADD_COMPANY_PHOTO',
     payload: uri,
   };
 }
