@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 const theme = getTheme();
 
 const PeopleItem = (props) => {
+  console.log(props.people.avatarUri);
   return(
     <TouchableWithoutFeedback
       onPress={() => props.selectPerson(props.people)}

@@ -11,6 +11,33 @@ import PropTypes from 'prop-types';
 const theme = getTheme();
 
 const CompanyItem = (props) => {
+  console.log(props.companies);
+  let companyImage;
+  let companyUri = null;
+  props.companies.names.forEach((name) => {
+    if (name.companyUri !== undefined) {
+      companyUri = name.companyUri;
+    }
+  });
+
+  if (companyUri !== null) {
+    companyImage = (
+      <Image
+        source={{uri: 'data:image/jpeg;base64,' + companyUri}}
+        size={100}
+        style={styles.image2}
+      />
+    );
+  } else {
+    companyImage = (
+    <Icon
+    name={'business'}
+    size={80}
+    style={styles.icon}
+    />
+  );
+  }
+
   return(
     <View>
       <View style={[theme.cardStyle, styles.card]}>
@@ -18,16 +45,12 @@ const CompanyItem = (props) => {
           source={require('../images/light-blue.jpg')}
           style={styles.image}
         />
-        <Icon
-          name={'business'}
-          size={80}
-          style={styles.icon}
-        />
+
+        {companyImage}
         <Text style={[theme.cardTitleStyle, styles.title]}>{props.companies.company}</Text>
         {props.companies.names.map((name) => {
           return (
             <TouchableWithoutFeedback key={name.uid}
-              onPress={() => props.selectPerson(name.uid)}
             >
             <View style={[theme.cardActionStyle, styles.action]}>
               <Text style={styles.nameDetails}>

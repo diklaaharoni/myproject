@@ -18,15 +18,20 @@ const AddImage = MKButton.coloredButton()
 .withText('ADD IMAGE')
 .build();
 
+const AddCompanyImage = MKButton.coloredButton()
+.withText('ADD COMPANY LOGO')
+.build();
+
 const mapStateToProps = state => {
-  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, job_description,
+  const { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook, twitter, job_description,
      notes } = state;
-  return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+  return { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
      twitter, job_description, notes };
 
 };
 class AddPerson extends Component {
   static propTypes = {
+    companyUri: PropTypes.string,
     avatarUri: PropTypes.string,
     first_name: PropTypes.string,
     last_name: PropTypes.string,
@@ -62,11 +67,11 @@ class AddPerson extends Component {
     )
   }
   onAddPress() {
-    const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+    const { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
        twitter,
        job_description, notes } = this.props;
 
-    this.props.createNewContact({ avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
+    this.props.createNewContact({ companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin,
        facebook, twitter, job_description, notes });
 
     this.props.navigation.navigate('PeopleList');
@@ -87,6 +92,21 @@ class AddPerson extends Component {
     })
   }
 
+  addCompanyImage = () => {
+    ImagePicker.showImagePicker({
+      title: 'Select your company logo',
+      cancelButtonTitle: 'Cancel'
+      }, response => {
+      if (response.didCancel) {
+        alert('cancel')
+      }else if (response.error) {
+        alert('sorry, not working')
+      }else {
+        this.props.addCompanyPhoto(response.data)
+      }
+    })
+  }
+
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -97,11 +117,17 @@ class AddPerson extends Component {
             style={styles.avatar}
             />
             <Text style={styles.text}>CREATE YOUR CARD</Text>
-
+            <Image
+            source={{uri: 'data:image/jpeg;base64,' + this.props.companyUri}}
+            style={styles.avatar}
+            />
           </View>
-          <View>
+          <View style={styles.buttons}>
             <AddImage
               onPress={()=>this.addImage()}
+            />
+            <AddCompanyImage
+              onPress={()=>this.addCompanyImage()}
             />
           </View>
             <MKTextField
@@ -220,5 +246,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
 });
 export default connect(mapStateToProps, actions)(AddPerson);

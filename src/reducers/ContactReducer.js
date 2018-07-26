@@ -6,6 +6,7 @@ const initialState = {
     detailView: false,
     searchTerm: '',
     personSelected: null,
+    companyUri: '',
     avatarUri: '',
     first_name: '',
     last_name: '',
@@ -84,6 +85,7 @@ export default (state = initialState, action) => {
 
             return {
                 ...state,
+                companyUri: '',
                 avatarUri: '',
                 first_name: '',
                 last_name: '',
@@ -111,6 +113,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 toUpdate: true,
+                companyUri: action.payload.companyUri,
                 avatarUri: action.payload.avatarUri,
                 first_name: action.payload.first_name,
                 last_name: action.payload.last_name,
@@ -131,6 +134,7 @@ export default (state = initialState, action) => {
                 ...state,
                 toUpdate: false,
                 detailView: false,
+                companyUri: '',
                 avatarUri: '',
                 first_name: '',
                 last_name: '',
@@ -152,6 +156,7 @@ export default (state = initialState, action) => {
                 ...state,
                 toUpdate: false,
                 detailView: false,
+                companyUri: '',
                 avatarUri: '',
                 first_name: '',
                 last_name: '',
@@ -189,6 +194,12 @@ export default (state = initialState, action) => {
             ...state,
             avatarUri: action.payload
           }
+
+          case 'ADD_COMPANY_PHOTO':
+            return {
+              ...state,
+              companyUri: action.payload,
+            }
 
         default:
             return state;

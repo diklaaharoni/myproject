@@ -19,10 +19,14 @@ const AddImage = MKButton.coloredButton()
 .withText('Update Image')
 .build();
 
+const AddCompanyImage = MKButton.coloredButton()
+.withText('Update Company Logo')
+.build();
+
 const mapStateToProps = state => {
-  const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+  const { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
      twitter, job_description,  notes, uid } = state;
-  return { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+  return { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
      twitter, job_description, notes, uid };
 
 };
@@ -56,10 +60,10 @@ class UpdatePerson extends Component {
         )
     }
     onUpdatePress() {
-      const { avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
+      const { companyUri, avatarUri, first_name, last_name, phone, email, company, instagram, linkedin, facebook,
          twitter, job_description, notes, uid } = this.props;
 
-      this.props.saveContact({ avatarUri, first_name, last_name, phone, email, company, instagram,
+      this.props.saveContact({ companyUri, avatarUri, first_name, last_name, phone, email, company, instagram,
          linkedin, facebook, twitter, job_description, notes, uid });
     }
 
@@ -79,22 +83,42 @@ class UpdatePerson extends Component {
       })
     }
 
+    updateCompanyImage = () => {
+      ImagePicker.showImagePicker({
+        title: 'Select your company logo',
+        cancelButtonTitle: 'Cancel'
+        }, response => {
+        if (response.didCancel) {
+          alert('cancel')
+        }else if (response.error) {
+          alert('sorry, not working')
+        }else {
+          this.props.addCompanyPhoto(response.data)
+        }
+      })
+    }
+
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
         <View style={styles.header}>
-        {/* <SimpleIcon name={'arrow-left-circle'} size={30} style={styles.closeIcon}
-            onPress={() => console.log(this) && this.props.selectPerson(this.props)} /> */}
-        <Image
-        source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
-        style={styles.avatar}
-        />
+          <Image
+          source={{uri: 'data:image/jpeg;base64,' + this.props.avatarUri}}
+          style={styles.avatar}
+          />
           <Text style={styles.text}>UPDATE CONTACT</Text>
+          <Image
+          source={{uri: 'data:image/jpeg;base64,' + this.props.companyUri}}
+          style={styles.avatar}
+          />
           </View>
-          <View>
+          <View style={styles.buttons}>
             <AddImage
               onPress={()=>this.updateImage()}
+            />
+            <AddCompanyImage
+              onPress={()=>this.updateCompanyImage()}
             />
           </View>
           <MKTextField
@@ -225,5 +249,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
 });
 export default connect(mapStateToProps, actions)(UpdatePerson);
